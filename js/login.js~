@@ -2,6 +2,6 @@ $( "#form-signin" ).submit(function( event ) {
   event.preventDefault();
   login($("#inputLoginid").val(), $("#inputPassword").val(), function(){
   	console.log("change");
-  	window.location.replace('pub1.html');
+  	window.location.replace('beeter.html');
   });
 });
