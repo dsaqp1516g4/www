@@ -1,4 +1,4 @@
-var BASE_URI="http://127.0.0.1:8080/beeter"
+var BASE_URL = "http://localhost:8080/music4you"
 
 function linksToMap(links){
 	var map = {};
@@ -20,44 +20,7 @@ function loadAPI(complete){
 		})
 		.fail(function(data){
 		});
-}
-
-function login(loginid, password, complete){
-	loadAPI(function(){
-		var api = JSON.parse(sessionStorage.api);
-		var uri = api.login.uri;
-		$.post(uri,
-			{
-				login: loginid,
-				password: password
-			}).done(function(authToken){
-				authToken.links = linksToMap(authToken.links);
-				sessionStorage["auth-token"] = JSON.stringify(authToken);
-				complete();
-			}).fail(function(jqXHR, textStatus, errorThrown){
-				var error = jqXHR.responseJSON;
-				alert(error.reason);
-			}
-		);
-	});
-}
-
-function logout(complete){
-	var authToken = JSON.parse(sessionStorage["auth-token"]);
-	var uri = authToken["links"]["logout"].uri;
-	console.log(authToken.token);
-	$.ajax({
-    	type: 'DELETE',
-   		url: uri,
-    	headers: {
-        	"X-Auth-Token":authToken.token
-    	}
-    }).done(function(data) { 
-    	sessionStorage.removeItem("api");
-    	sessionStorage.removeItem("auth-token");
-    	complete();
-  	}).fail(function(){});
-}
+} 
 
 function getCurrentUserProfile(complete){
 	var authToken = JSON.parse(sessionStorage["auth-token"]);
