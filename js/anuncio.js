@@ -1,25 +1,19 @@
-var BASE_URI= "http://0.0.0.0:8080/music4you"
+var BASE_URI= "http://localhost:8080/music4you"
 
-function loadAnuncios(uri){
-    $('#message').text(''); 
-    $('#pagination').text('');
+$(function(){
     var authToken = JSON.parse(sessionStorage["auth-token"]);
-    $.ajax({
-        type : 'GET',
-        url : uri,
-        headers: {"X-Auth-Token":authToken.token}
-    }).done(function(data, status, jqxhr){
-        data.links=linksToMap(data.links);
-        var response = data;
-        var anuncioCollection = new AnuncioCollection(response);
-        var html = anuncioCollection.toHTML();
-    }).fail(function(jqXHR, textStatus){
-        $("#anuncios").text("");
-        $("#anuncios").append("<div class='alert alert-block alert-info'><p>You have to be login for see this page.</p></div>");
-    });
-}
+    var currentAnunciosUri = authToken["links"]["current-anuncios"].uri;
+    
+    
+    loadAnuncios();
+    //loadAnuncios(currentStingsUri, function(stings){
+    //    $("#anuncio_result").empty();
+        //processStingCollection(stings);
+   });
 
-function AnuncioCollection (anuncioCollection){ 
+
+
+/* function AnuncioCollection (anuncioCollection){ 
   this.Anuncio = anuncioCollection;
     var instance = this;
     
@@ -37,74 +31,23 @@ function AnuncioCollection (anuncioCollection){
         var prev = this.Anuncio.links["prev"].uri;
            var next = this.Anuncio.links["next"].uri;
         if(anuncioCollection.pagbefore==0){
-            $('#pagination').append(' <a onClick="loadStings(\'' + next + '\');" style = "cursor: pointer; cursor: hand;"><div class="span3"><button class="btn btn-box">Next</button></div></a>');
+            $('#pagination').append(' <a onClick="loadAnuncios(\'' + next + '\');" style = "cursor: pointer; cursor: hand;"><div class="span3"><button class="btn btn-box">Next</button></div></a>');
         }
         else if (anuncioCollection.pagbefore==anuncioCollection.pagtotal){
-             $('#pagination').append(' <a onClick="loadStings(\'' + prev + '\');" style = "cursor: pointer; cursor: hand; "><div class="span3"><button class="btn btn-box">Previous</button></div></a>');
+             $('#pagination').append(' <a onClick="loadAnuncios(\'' + prev + '\');" style = "cursor: pointer; cursor: hand; "><div class="span3"><button class="btn btn-box">Previous</button></div></a>');
         }
         else{
         if(prev){
-            $('#pagination').append(' <a onClick="loadStings(\'' + prev + '\');" style = "cursor: pointer; cursor: hand; "><div class="span3"><button class="btn btn-box">Previous</button></div></a>');
+            $('#pagination').append(' <a onClick="loadAnuncios(\'' + prev + '\');" style = "cursor: pointer; cursor: hand; "><div class="span3"><button class="btn btn-box">Previous</button></div></a>');
         }
         if(next){
-           $('#pagination').append(' <a onClick="loadStings(\'' + next + '\');" style = "cursor: pointer; cursor: hand; "><div class="span3"><button class="btn btn-box">Next</button></div></a>');
+           $('#pagination').append(' <a onClick="loadAnuncios(\'' + next + '\');" style = "cursor: pointer; cursor: hand; "><div class="span3"><button class="btn btn-box">Next</button></div></a>');
         }
         }
         return html;
     }
-}
+} */
 
-function crearAnuncio(contenido, uri){
-    var authToken = JSON.parse(sessionStorage["auth-token"]);
-    $.ajax({
-        url: uri,
-        type: 'POST',
-        crossDomain: true,
-        dataType: "json",
-        data: { content: contenido },
-        headers: {"X-Auth-Token":authToken.token}
-        
-        }).done(function(data, status, jqxhr){
-        data.links=linksToMap(data.links);
-        window.location.reload();
-        
-        
-    }).fail(function(){
-        console.log('Error');
-    });
-}
 
-function borrarAnuncio(contenido, uri){
-    var authToken = JSON.parse(sessionStorage["auth-token"]);
-    $.ajax({
-        url: uri,
-        type: 'DELETE',
-        crossDomain: true,
-        dataType: "json",
-        data: { content: contenido },
-        headers: {"X-Auth-Token":authToken.token}
-        
-    }).done(function(data, status, jqxhr){
-        data.links=linksToMap(data.links);
-        window.location.reload();
-    }).fail(function(){
-        console.log('Error');
-    });
-}
-
-function getAnuncio(uri){
-    var authToken = JSON.parse(sessionStorage["auth-token"]);
-    $.ajax({
-        url: uri,
-        type: 'GET',
-        crossDomain: true,
-        dataType: "json",
-        headers: {"X-Auth-Token" : authToken.token}
-    }).done(function(data, status, jqxhr){
-        data.links=linksToMap(data.links);
-    }).fail(function(){
-        console.log("ERROR");
-    });
-}
 
 
