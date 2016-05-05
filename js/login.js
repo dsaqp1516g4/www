@@ -1,4 +1,4 @@
-var BASE_URI = "http://localhost:8080/music4you"
+//var BASE_URI = "http://127.0.0.1:8080/music4you"
 
 $( "#form-signin" ).submit(function( event ) {
   event.preventDefault();
@@ -10,6 +10,7 @@ $( "#form-signin" ).submit(function( event ) {
 });
 
 
+<<<<<<< HEAD
 function linksToMap(links){
 		console.log("function links");
 
@@ -76,3 +77,5 @@ function logout(complete){
 
 
 
+=======
+>>>>>>> 1b00433201e00461ff496e97a89e02e222409434
