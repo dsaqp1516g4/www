@@ -10,7 +10,6 @@ $( "#form-signin" ).submit(function( event ) {
 });
 
 
-<<<<<<< HEAD
 function linksToMap(links){
 		console.log("function links");
 
@@ -75,7 +74,3 @@ function logout(complete){
   	}).fail(function(){});
 } 
 
-
-
-=======
->>>>>>> 1b00433201e00461ff496e97a89e02e222409434

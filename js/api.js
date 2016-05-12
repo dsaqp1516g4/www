@@ -145,31 +145,6 @@ function loadAnuncios(){
                                         }
                                         $('<strong>Usuario: </strong>' + tipo + '<br>').appendTo($('#anuncio_result'));
                                         $('</p></a>').appendTo($('#anuncio_result'));
-                                        
-                                        /* $.each(files, function(j, w) {
-                                            var file = w;
-                                            $('<div class="list-group"><a href="#" class="list-group-item active"><h4 class="list-group-item-heading">' + file.subject +'</h4><br>').appendTo($('#anuncio_result'));
-                                            $('<p class="list-group-item-text">').appendTo($('#anuncio_result'));
-                                            $('<strong>Preu: </strong>' + file.basePrice + ' € <br>').appendTo($('#anuncio_result'));
-                                            
-                                            var date = new Date(file.creationDate);
-                                            var hours = date.getHours();
-                                            var minutes = date.getMinutes();
-                                            var seconds = date.getSeconds();
-                                            var day = date.getDate();
-                                            var month = date.getMonth() + 1;
-                                            var year = date.getFullYear();
-                                            // $('<strong> Creation Date: </strong> ' + file.creationdate + '<br>').appendTo($('#result'));
-                                            $('<strong> Creation Date: </strong> ' + day+'/'+month+'/'+year+' '+hours+':'+minutes+':'+seconds + '<br>').appendTo($('#anuncio_result'));
-                                            $('<strong> Cilindrada: </strong> ' + file.cm3 + '<br>').appendTo($('#anuncio_result'));
-                                            $('<strong> Maker: </strong> ' + file.maker + '<br>').appendTo($('#anuncio_result'));
-                                            $('<strong> Velocitat màxima: </strong> ' + file.maximumSpeed + 'km/h<br>').appendTo($('#anuncio_result'));
-                                            $('<strong> Model: </strong> ' + file.model + '<br>').appendTo($('#anuncio_result'));
-                                            $('<strong> Subversions: </strong> ' + file.subversions + '<br></p></a>').appendTo($('#anuncio_result'));
-                                            //$.each(files.subversion, function(h, y) {
-                                            //    var version = y;
-                                            //    $('<strong> Subversión 1: </strong> ' + version.model + '<br>').appendTo($('#result'));
-                                        }); */
 				});
         
         
@@ -244,7 +219,8 @@ function getAnuncio(uri){
 function registrarUsuario (loginid, password, fullname, email, complete){
     loadAPI(function(){
         var api = JSON.parse(sessionStorage.api);
-        var uri= "http://0.0.0.0:8080/music4you/users";;
+        var uri= "http://0.0.0.0:8080/music4you/users";
+        
  $.post(uri,
 			{
 				loginid: loginid,
@@ -265,3 +241,64 @@ function registrarUsuario (loginid, password, fullname, email, complete){
 	});
 }
  
+
+/* COMENTARIOS */
+
+function crearComment(contenido, uri){
+    var authToken = JSON.parse(sessionStorage["auth-token"]);
+    $.ajax({
+        url: uri,
+        type: 'POST',
+        crossDomain: true,
+        dataType: "json",
+        data: { content: contenido },
+        headers: {"X-Auth-Token":authToken.token}
+        
+        }).done(function(data, status, jqxhr){
+        data.links=linksToMap(data.links);
+        window.location.reload();
+    }).fail(function(){
+        console.log('Error');
+    });
+}
+
+function borrarComment(contenido, uri){
+    var authToken = JSON.parse(sessionStorage["auth-token"]);
+    $.ajax({
+        url: uri,
+        type: 'DELETE',
+        crossDomain: true,
+        dataType: "json",
+        data: { content: contenido },
+        headers: {"X-Auth-Token":authToken.token}
+        
+    }).done(function(data, status, jqxhr){
+        data.links=linksToMap(data.links);
+        window.location.reload();
+    }).fail(function(){
+        console.log('Error');
+    });
+}
+
+function getComment(uri){
+    var authToken = JSON.parse(sessionStorage["auth-token"]);
+    $.ajax({
+        url: uri,
+        type: 'GET',
+        crossDomain: true,
+        dataType: "json",
+        headers: {"X-Auth-Token" : authToken.token}
+    }).done(function(data, status, jqxhr){
+        var comentario = data.stings;
+        
+            $('<p><strong>Userid: </strong>' + comentario.userid + '<br>').appendTo($('#comentario_result'));
+            $('<strong>Contenido: </strong>' + comentario.contenido + ' € <br>').appendTo($('#comentario_result'));
+
+            $('</p>').appendTo($('#comment_result'));
+        
+        
+        data.links=linksToMap(data.links);
+    }).fail(function(){
+        console.log("ERROR");
+    });
+}

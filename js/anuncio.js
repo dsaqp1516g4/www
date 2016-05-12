@@ -13,6 +13,15 @@ $(function(){
         //processStingCollection(stings);
    });
 
+$( "#form-anuncio" ).submit(function( event ) {
+  event.preventDefault();
+  createAnuncio($("#inputSubject").val(), $("#inputDescription").val(), $("#inputPrice").val(), $("#inputType").val(), function(){
+  	console.log("change");
+
+  	window.location.replace('index.html');
+  });
+});
+
 
 
 /* function AnuncioCollection (anuncioCollection){ 
