@@ -136,34 +136,29 @@ function loadAnuncios(){
     }).done(function(data, status, jqxhr){
         
         var anuncios = data.stings;
-                
-                $.each(anuncios, function(i, v) {
-					var anuncio = v;
-                                        console.log(i);
-                                        $('<div class="list-group"><a href="#" id="'+i+'anuncio" class="list-group-item" data-toggle="modal" data-target="#VerAnuncio"><h4 class="list-group-item-heading">' + anuncio.subject +'</h4></a>').appendTo($('#anuncio_result'));
-                                        $('<p class="list-group-item-text">').appendTo($('#anuncio_result'));
-                                        $('<strong>Userid: </strong>' + anuncio.userid + '<br>').appendTo($('#anuncio_result'));
-                                        $('<strong>Precio: </strong>' + anuncio.precio + ' € <br>').appendTo($('#anuncio_result'));
-                                        if(anuncio.type=1){
-                                            var tipo="artista";
-                                        }
-                                        else{
-                                            var tipo="registrado";
-                                        }
-                                        $('<strong>Usuario: </strong>' + tipo + '<br>').appendTo($('#anuncio_result'));
-                                        $('</p>').appendTo($('#anuncio_result'));
-                                        $("#"+i+"anuncio").click(function(){
-                                            //event.preventDefault();
-                                            console.log("ID:" + anuncio.id);
-                                        getAnuncio("BASE_URI"+"/anuncio/"+anuncio.id, function(){
+        $.each(anuncios, function(i, v) {
+                                    var anuncio = v;
+                                    console.log(i);
+                                    $('<div class="list-group"><a href="#" id="'+i+'anuncio" class="list-group-item" data-toggle="modal" data-target="#VerAnuncio"><h4 class="list-group-item-heading">' + anuncio.subject +'</h4></a>').appendTo($('#anuncio_result'));
+                                    $('<p class="list-group-item-text">').appendTo($('#anuncio_result'));
+                                    $('<strong>Userid: </strong>' + anuncio.userid + '<br>').appendTo($('#anuncio_result'));
+                                    $('<strong>Precio: </strong>' + anuncio.precio + ' € <br>').appendTo($('#anuncio_result'));
+                                    if(anuncio.type=1){
+                                        var tipo="artista";
+                                    }
+                                    else{
+                                        var tipo="registrado";
+                                    }
+                                    $('<strong>Usuario: </strong>' + tipo + '<br>').appendTo($('#anuncio_result'));
+                                    $('</p>').appendTo($('#anuncio_result'));
+                                    $("#"+i+"anuncio").click(function(){
+                                    //event.preventDefault();
+                                    console.log("ID:" + anuncio.id);
+                                    getAnuncio(BASE_URI+"/anuncio/"+anuncio.id, function(){
     
-                                        });
-                                        });
-				});
-        
-        
-        
-        
+                                    });
+                                    });
+        });
         //data.links=linksToMap(data.links);
         //var response = data;
         //var anuncioCollection = new AnuncioCollection(response);
@@ -227,26 +222,82 @@ function getAnuncio(uri){
         dataType: "json",
         headers: {"X-Auth-Token" : authToken.token}
     }).done(function(data, status, jqxhr){
-        var anuncios = data.stings;
+        var anuncio1 = data;
+        $( "#anuncio_subject" ).replaceWith('<h2 id="anuncio_subject" class="modal-title" style="color:black">'+anuncio1.subject+'</h2>');
+        //$( "div.anuncio" ).replaceWith("<div><p>Creator:"+anuncio1.creator+"<br>Precio:"+anuncio1.price);
         
-        $.each(anuncios, function(i, v) {
-                $('<div class="list-group"><a href="#" class="list-group-item active"><h4 class="list-group-item-heading">' + anuncio.subject +'</h4><br></a>').appendTo($('#anuncio'));
-                $('<p class="list-group-item-text">').appendTo($('#anuncio'));
-                $('<strong>Userid: </strong>' + anuncio.userid + '<br>').appendTo($('#anuncio'));
-                $('<strong>Precio: </strong>' + anuncio.precio + '€ <br>').appendTo($('#anuncio'));
-                if(anuncio.type=1){
-                      var tipo="artista";
-                }
-                else{
-                      var tipo="registrado";
-                }
-                $('<strong>Usuario: </strong>' + tipo + '<br>').appendTo($('#anuncio'));
-                $('</p>').appendTo($('#anuncio'));
-                $('<p id="comment_result"></p>').appendTo($('#anuncio'));
-        });
+        
+        
+        
+        
+        //$('<div>' + anuncio1.subject +'</div>').appendTo($('#anuncio_subject'));
+        //$('<p style="background-color:#333">').appendTo($('#anuncio'));
+        //$('<strong>Creator: </strong>' + anuncio1.creator + '<br>').appendTo($('#anuncio'));
+        //$('<strong>Precio: </strong>' + anuncio1.precio + '€ <br>').appendTo($('#anuncio'));
+        if(anuncio1.type=1){
+                var tipo="artista";
+        }
+        else{
+                var tipo="registrado";
+        }
+        //$('<strong>Usuario: </strong>' + tipo + '<br>').appendTo($('#anuncio'));
+        //$('</p>').appendTo($('#anuncio'));
+        $('<p id="comment_result"></p>').appendTo($('#anuncio'));
         data.links=linksToMap(data.links);
     }).fail(function(){
         console.log("ERROR");
+        $("#anuncio").text("");
+        $("#anuncio").append("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>");
+    });
+}
+
+/*         *
+ * EVENTOS *
+ *         */
+
+ function loadEvents(){
+    $('#event_result').text(''); 
+    
+    //var authToken = JSON.parse(sessionStorage["auth-token"]);
+    var uri = BASE_URI+"/events";
+    $.ajax({
+        type : 'GET',
+        url : uri,
+        //headers: {"X-Auth-Token":authToken.token},
+        dataType : 'json',
+        crossDomain : true,
+    }).done(function(data, status, jqxhr){
+        
+        var events = data.events;
+                
+                $.each(events, function(i, v) {
+					var evento = v;
+                                        console.log(i);
+                                        $('<div class="list-group"><a href="#" class="list-group-item"><h4 class="list-group-item-heading">' + evento.titol +'</h4></a>').appendTo($('#event_result'));
+                                        $('<p class="list-group-item-text">').appendTo($('#event_result'));
+                                        $('<div>' + evento.text + '</div><br>').appendTo($('#event_result'));
+                                        $('<strong>Fecha de inicio: </strong>' + evento.startDate + '<br>').appendTo($('#event_result'));
+                                        $('</p>').appendTo($('#event_result'));
+                                        $('<a href="#" id="'+i+'event" class="list-group-item" data-toggle="modal" data-target="#VerEvento">Más...</a>').appendTo($('#event_result'));
+                                        $("#"+i+"event").click(function(){
+                                            //event.preventDefault();
+                                            console.log("ID:" + evento.id);
+                                            getEvent("BASE_URI"+"/events/"+evento.id, function(){
+    
+                                            }); 
+                                        });
+				});
+        
+        
+        
+        
+        //data.links=linksToMap(data.links);
+        //var response = data;
+        //var anuncioCollection = new AnuncioCollection(response);
+        //var html = anuncioCollection.toHTML();
+    }).fail(function(jqXHR, textStatus){
+        $("#event_result").text("");
+        $("#event_result").append("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>");
     });
 }
 

@@ -6,7 +6,7 @@ $(function(){
     //var currentAnunciosUri = authToken["links"]["current-anuncios"].uri;
     
     
-    loadEventos();
+    loadEvents();
 
     //loadAnuncios(currentStingsUri, function(stings){
     //    $("#anuncio_result").empty();
@@ -20,7 +20,3 @@ $( "#form-evento" ).submit(function( event ) {
     window.location.replace('music4you.html');
   });
 });
-
-function loadEventos(){
-    console.log("eventos");
-}
