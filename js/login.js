@@ -8,6 +8,14 @@ $( "#form-signin" ).submit(function( event ) {
   });
 });
 
+$( "#form-signout" ).click(function( event ) {
+  event.preventDefault();
+  logout(function(){
+  	console.log("logout");
+  	window.location.replace('index.html');
+  });
+});
+
 
 /* 
 

@@ -22,7 +22,6 @@ $( "#form-anuncio" ).submit(function( event ) {
 });
 
 
-
 /* function AnuncioCollection (anuncioCollection){ 
   this.Anuncio = anuncioCollection;
     var instance = this;

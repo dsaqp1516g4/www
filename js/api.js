@@ -50,7 +50,7 @@ function login(loginid, password, complete){
 	loadAPI(function(){
 		var api = JSON.parse(sessionStorage.api);
 		//var uri = api.login.uri;
-        var uri = BASE_URI+"/login";
+                var uri = BASE_URI+"/login";
 		$.post(uri,
 			{
 				login: loginid,
@@ -82,7 +82,9 @@ function logout(complete){
     	sessionStorage.removeItem("api");
     	sessionStorage.removeItem("auth-token");
     	complete();
-  	}).fail(function(){});
+  	}).fail(function(){
+            alert.window("Falló el cierre de sesión");
+        });
 } 
 
 
@@ -117,6 +119,9 @@ function getSting(uri, complete){
  * ANUNCIOS *
  *          */
 
+
+/* OK */
+
 function loadAnuncios(){
     $('#anuncio_result').text(''); 
     
@@ -134,7 +139,8 @@ function loadAnuncios(){
                 
                 $.each(anuncios, function(i, v) {
 					var anuncio = v;
-                                        $('<div class="list-group"><a href="#" class="list-group-item active"><h4 class="list-group-item-heading">' + anuncio.subject +'</h4><br>').appendTo($('#anuncio_result'));
+                                        console.log(i);
+                                        $('<div class="list-group"><a href="#" id="'+i+'anuncio" class="list-group-item" data-toggle="modal" data-target="#VerAnuncio"><h4 class="list-group-item-heading">' + anuncio.subject +'</h4></a>').appendTo($('#anuncio_result'));
                                         $('<p class="list-group-item-text">').appendTo($('#anuncio_result'));
                                         $('<strong>Userid: </strong>' + anuncio.userid + '<br>').appendTo($('#anuncio_result'));
                                         $('<strong>Precio: </strong>' + anuncio.precio + ' € <br>').appendTo($('#anuncio_result'));
@@ -145,7 +151,14 @@ function loadAnuncios(){
                                             var tipo="registrado";
                                         }
                                         $('<strong>Usuario: </strong>' + tipo + '<br>').appendTo($('#anuncio_result'));
-                                        $('</p></a>').appendTo($('#anuncio_result'));
+                                        $('</p>').appendTo($('#anuncio_result'));
+                                        $("#"+i+"anuncio").click(function(){
+                                            //event.preventDefault();
+                                            console.log("ID:" + anuncio.id);
+                                        getAnuncio("BASE_URI"+"/anuncio/"+anuncio.id, function(){
+    
+                                        });
+                                        });
 				});
         
         
@@ -157,7 +170,7 @@ function loadAnuncios(){
         //var html = anuncioCollection.toHTML();
     }).fail(function(jqXHR, textStatus){
         $("#anuncio_result").text("");
-        $("#anuncio_result").append("<div class='alert alert-block alert-info'><p>You have to be login for see this page.</p></div>");
+        $("#anuncio_result").append("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>");
     });
 }
 
@@ -217,7 +230,7 @@ function getAnuncio(uri){
         var anuncios = data.stings;
         
         $.each(anuncios, function(i, v) {
-                $('<div class="list-group"><a href="#" class="list-group-item active"><h4 class="list-group-item-heading">' + anuncio.subject +'</h4><br>').appendTo($('#anuncio_result'));
+                $('<div class="list-group"><a href="#" class="list-group-item active"><h4 class="list-group-item-heading">' + anuncio.subject +'</h4><br></a>').appendTo($('#anuncio'));
                 $('<p class="list-group-item-text">').appendTo($('#anuncio'));
                 $('<strong>Userid: </strong>' + anuncio.userid + '<br>').appendTo($('#anuncio'));
                 $('<strong>Precio: </strong>' + anuncio.precio + '€ <br>').appendTo($('#anuncio'));
@@ -228,7 +241,8 @@ function getAnuncio(uri){
                       var tipo="registrado";
                 }
                 $('<strong>Usuario: </strong>' + tipo + '<br>').appendTo($('#anuncio'));
-                $('</p></a>').appendTo($('#anuncio'));
+                $('</p>').appendTo($('#anuncio'));
+                $('<p id="comment_result"></p>').appendTo($('#anuncio'));
         });
         data.links=linksToMap(data.links);
     }).fail(function(){
@@ -265,3 +279,11 @@ function registrarUsuario (loginid, password, fullname, email, complete){
 		);
 	});
 }
+
+
+
+/*              *
+ *  COMENTARIOS *
+ *              */
+
+

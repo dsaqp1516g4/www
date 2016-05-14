@@ -15,8 +15,12 @@ $(function(){
 
 $( "#form-evento" ).submit(function( event ) {
     event.preventDefault();
-    //crearAnuncio($("#inputSubject").val(), $("#inputDescription").val(), $("#inputPrice").val(), $("#inputType").val(), function(){
+    crearEvento($("#inputSubject").val(), $("#inputDescription").val(), $("#inputPrice").val(), $("#inputType").val(), function(){
     console.log("change");
     window.location.replace('music4you.html');
   });
 });
+
+function loadEventos(){
+    console.log("eventos");
+}
