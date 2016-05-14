@@ -4,11 +4,12 @@ $( "#form-signin" ).submit(function( event ) {
   event.preventDefault();
   login($("#inputLoginid").val(), $("#inputPassword").val(), function(){
   	console.log("change");
-
-  	window.location.replace('index.html');
+  	window.location.replace('music4you.html');
   });
 });
 
+
+/* 
 
 function linksToMap(links){
 		console.log("function links");
@@ -74,3 +75,4 @@ function logout(complete){
   	}).fail(function(){});
 } 
 
+*/

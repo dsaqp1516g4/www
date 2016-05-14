@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Music4You - Tu portal de artistas</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/grayscale.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">
+                    <i class="fa fa-play-circle"></i>  <span class="light">Inicio</span> Music4You
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#anuncios">Anuncios</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#download">Login</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    
+    <!-- Modal para crear anuncio -->
+    
+    <div id="CrearAnuncio" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+    <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title" style="color:black">Crea un anuncio</h2>
+        </div>
+        <div class="modal-body">
+            <form class="form-anuncio" id="form-anuncio">
+          <label for="subject" class="sr-only">Asunto</label>
+            <input type="text" id="inputSubject" class="form-control" placeholder="Asunto" required autofocus>
+
+
+          <label for="description" class="sr-only">Descripción</label>
+            <input type="text" id="inputDescription" class="form-control" placeholder="Descripción" required>
+
+  
+          <label for="price" class="sr-only">Precio</label>
+            <input type="number" id="inputPrice" class="form-control" placeholder="€" required>
+
+           <label for="email" class="sr-only">Tipo</label>
+            <select>
+                                <option value="0" selected>Seleccionar</option>
+                                            <option style="background-color:#dcdcc3;" value="1">Artista</option>
+                                            <option style="background-color:#dcdcc3;" value="0">Melómano</option>
+            </select>
+            <label for="imagen" class="sr-only">Imagen del anuncio</label>
+            <input type="file" id="imagen" class="form-control" placeholder="Seleccion">
+      </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" id="crearanuncio" type="submit">Publicar anuncio</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+        </div>
+        </div>
+    </div>
+    
+    <!-- Modal para crear un evento -->
+    
+    <div id="CrearEvento" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+    <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title" style="color:black">Crea un evento</h2>
+        </div>
+        <div class="modal-body">
+            <form class="form-anuncio" id="form-anuncio">
+            <label for="inputTitol" class="sr-only">Título</label>
+            <input type="text" id="inputTitol" class="form-control" placeholder="Asunto" required autofocus>
+            <label for="description" class="sr-only">Descripción</label>
+            <input type="text" id="inputText" class="form-control" placeholder="Descripción" required>
+            <label for="price" class="sr-only">Latitud</label>
+            <input type="number" id="inputLat" class="form-control" placeholder="Latitud en grados">
+            <label for="price" class="sr-only">Latitud</label>
+            <input type="number" id="inputLong" class="form-control" placeholder="Longitud en grados">
+            <label for="price" class="sr-only">Puntuación</label>
+            <input type="number" id="inputRatio" class="form-control" placeholder="0 a 10">
+            <label for="imagen" class="sr-only">Fecha</label>
+            <input type="date" id="start" class="form-control" placeholder="Fecha de comienzo">
+            <input type="date" id="end" class="form-control" placeholder="Fecha de final">
+      </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" id="crearanuncio" type="submit">Publicar evento</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+        </div>
+        </div>
+    </div>
+    <!-- Modal para mostrar evento -->
+    
+    
+    <!-- Modal para mostrar anuncio -->
+    
+    <!-- Modal para mostrar detalles de una canción -->
+    
+    <!-- Modal para subir canción -->
+    
+    <div id="CrearPlay" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+    <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title" style="color:black">Crea un evento</h2>
+        </div>
+        <div class="modal-body">
+            <form class="form-anuncio" id="form-anuncio">
+            <label for="inputTitol" class="sr-only">Título</label>
+            <input type="text" id="inputArtist" class="form-control" placeholder="Artista" required autofocus>
+            <label for="description" class="sr-only">Descripción</label>
+            <input type="text" id="inputTitle" class="form-control" placeholder="Título" required>
+            <label for="price" class="sr-only">Latitud</label>
+            <input type="text" id="inputLink" class="form-control" placeholder="Enlace de Youtube">
+            <label for="price" class="sr-only">Latitud</label>
+            <input type="file" id="inputAudio" class="form-control" placeholder="Audio">
+            <label for="price" class="sr-only">Puntuación</label>
+            <input type="number" id="inputGenre" class="form-control" placeholder="Género">
+            <label for="imagen" class="sr-only">Fecha</label>
+            <input type="number" id="inputYear" class="form-control" placeholder="Año">
+            <input type="date" id="end" class="form-control" placeholder="Fecha de final">
+      </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" id="crearanuncio" type="submit">Publicar evento</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+        </div>
+        </div>
+    </div>
+    
+    
+    <!-- Intro Header -->
+    <!-- <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h1 class="brand-heading">Music4You</h1>
+                        <p class="intro-text">Tu buscador de artistas y musicos para tus eventos.<br>Aqui lo que sea.</p>
+                        <a href="#about" class="btn btn-circle page-scroll">
+                            <i class="fa fa-angle-double-down animated"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header> -->
+    
+    
+            <section class="container download-section text-center">
+               <div class="row">
+                <div class="col-sm-2">
+                    <h2>Menú</h2>
+                    <button href="#" data-toggle="modal" data-target="#CrearAnuncio">Crear anuncio</button><br><br>
+                    <button  href="#" data-toggle="modal" data-target="#CrearEvento">Crear evento</button><br>
+
+                    <b>Filtros</b>
+
+                    <!-- seleccionar precio -->
+                    <dl>
+                    <dt><label>Precio</label></dt>
+                    <dd class="searchfrom">
+                        <input placeholder=" desde" id="pricelistFrom" class="textfield" type="tel">
+                        <span id="temp_ps" style="display: none;"></span>
+                    </dd>
+                    <dd class="searchfrom">
+
+                        <input placeholder=" hasta" name="pe" id="sb_pricelistTo" class="textfield searchpriceTo" value="" type="tel">
+
+                    <span id="temp_pe" style="display: none;"></span>
+                    </dd>
+                    </dl>
+                    <!-- seleccionar categoria -->
+                    <dl id="parent_category_container" class="selectDl">
+                    <dt><label for="parent_category">Género</label></dt>
+                    <dd>
+                        <span id="temp_parent_category" style="display: none;">102</span>
+                        <div class="form-select">
+                            <select name="parent_category" id="parent_category">
+                                <option value="0" selected>Seleccionar</option>
+                                            <option style="background-color:#dcdcc3;" value="1">House</option>
+                                            <option style="background-color:#dcdcc3;" value="2">Trance</option>
+                                            <option style="background-color:#dcdcc3;" value="3">Drum&Bass</option>
+                                            <option style="background-color:#dcdcc3;" value="4">Electropop</option>
+                                            <option style="background-color:#dcdcc3;" value="5">Folk</option>
+                                             <option style="background-color:#dcdcc3;" value="6">Otros</option>	
+                            </select>
+                        </div>
+                    </dd>
+                    </dl>
+
+                    <dl>
+                        <dt><label>Tipo</label></dt>
+                        <dd>
+                            <span id="temp_parent_category" style="display: none;">102</span>
+                            <div class="form-select">
+                                <select name="parent_category" id="parent_category">
+                                    <option value="0" selected>Seleccionar</option>
+                                    <option style="background-color:#dcdcc3;" value="1">Artista</option>
+                                    <option style="background-color:#dcdcc3;" value="2">Melómano</option>	
+                            </select>
+                        </div>
+                    </dd>
+                    </dl>
+                </div>
+            <div class="col-sm-7"> 
+                <h2>Anuncios</h2>
+                <p id="anuncio_result"></p>
+            </div>
+            <div class="col-sm-3">
+                <h2>Eventos</h2>
+                <p id="evento_result"></p>
+            </div>
+
+        </section>
+    
+
+    <!-- About Section -->
+    <section id="anuncios" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Anuncios</h2>
+                <p id="anuncio_result"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <!--<section id="download" class="content-section text-center">
+        <div class="download-section">
+            <div class="container">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Download Grayscale</h2>
+                    <p>You can download Grayscale for free on the preview page at Start Bootstrap.</p>
+                    <a href="http://startbootstrap.com/template-overviews/grayscale/" class="btn btn-default btn-lg">Visit Download Page</a>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Contact Start Bootstrap</h2>
+                <p>Feel free to email us to provide some feedback on our templates, give us suggestions for new templates and themes, or to just say hello!</p>
+                <p><a href="mailto:feedback@startbootstrap.com">feedback@startbootstrap.com</a>
+                </p>
+                <ul class="list-inline banner-social-buttons">
+                    <li>
+                        <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>Copyright &copy; Hicham Azouagh / Joan Jerez 2016</p>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/grayscale.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/anuncio.js"></script>
+    <script src="js/comentario.js"></script>
+    <script src="js/evento.js"></script>
+
+</body>
+
+</html>

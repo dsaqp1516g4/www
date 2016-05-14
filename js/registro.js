@@ -1,4 +1,4 @@
-$( "#form-signin" ).submit(function( event ) {
+$( "#form-register" ).submit(function( event ) {
   event.preventDefault(); 
 
   
@@ -20,9 +20,10 @@ $( "#form-signin" ).submit(function( event ) {
   registrarUsuario($('#loginid').val(), $('#password').val(), $('#fullname').val(), $('#email').val(), function(){
   	console.log("change");
   	window.location.replace('index.html');
-
-
 	  });
-	}
+  //login($('#loginid').val(), $('#password').val(), function(){
+  //      console.log("login");
+  //      window.location.replace('music4you.html');
+	});
 });
 

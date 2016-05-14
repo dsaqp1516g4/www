@@ -1,7 +1,8 @@
 var BASE_URI = "http://localhost:8080/music4you"
 
 $(function(){
-    loadAnuncios();
+    
+    
 });
 
 function linksToMap(links){
@@ -160,14 +161,22 @@ function loadAnuncios(){
     });
 }
 
-function crearAnuncio(contenido, uri){
+function crearAnuncio(subject, description, precio, type, uri){
     var authToken = JSON.parse(sessionStorage["auth-token"]);
+    
+    var anuncio = new Object();
+    anuncio.subject = subject;
+    anuncio.description = description;
+    anuncio.precio = precio;
+    anuncio.type = type;
+    
     $.ajax({
         url: uri,
         type: 'POST',
         crossDomain: true,
         dataType: "json",
-        data: { content: contenido },
+        data: { content: anuncio
+        },
         headers: {"X-Auth-Token":authToken.token}
         
         }).done(function(data, status, jqxhr){
@@ -205,6 +214,22 @@ function getAnuncio(uri){
         dataType: "json",
         headers: {"X-Auth-Token" : authToken.token}
     }).done(function(data, status, jqxhr){
+        var anuncios = data.stings;
+        
+        $.each(anuncios, function(i, v) {
+                $('<div class="list-group"><a href="#" class="list-group-item active"><h4 class="list-group-item-heading">' + anuncio.subject +'</h4><br>').appendTo($('#anuncio_result'));
+                $('<p class="list-group-item-text">').appendTo($('#anuncio'));
+                $('<strong>Userid: </strong>' + anuncio.userid + '<br>').appendTo($('#anuncio'));
+                $('<strong>Precio: </strong>' + anuncio.precio + '€ <br>').appendTo($('#anuncio'));
+                if(anuncio.type=1){
+                      var tipo="artista";
+                }
+                else{
+                      var tipo="registrado";
+                }
+                $('<strong>Usuario: </strong>' + tipo + '<br>').appendTo($('#anuncio'));
+                $('</p></a>').appendTo($('#anuncio'));
+        });
         data.links=linksToMap(data.links);
     }).fail(function(){
         console.log("ERROR");
@@ -219,10 +244,10 @@ function getAnuncio(uri){
 function registrarUsuario (loginid, password, fullname, email, complete){
     loadAPI(function(){
         var api = JSON.parse(sessionStorage.api);
-        var uri= "http://0.0.0.0:8080/music4you/users";
+        var uri= "http://127.0.0.1:8080/music4you/users";
         
- $.post(uri,
-			{
+    $.post(uri,
+                        {
 				loginid: loginid,
 				password: password,
 				fullname: fullname,
@@ -239,66 +264,4 @@ function registrarUsuario (loginid, password, fullname, email, complete){
 			}
 		);
 	});
-}
- 
-
-/* COMENTARIOS */
-
-function crearComment(contenido, uri){
-    var authToken = JSON.parse(sessionStorage["auth-token"]);
-    $.ajax({
-        url: uri,
-        type: 'POST',
-        crossDomain: true,
-        dataType: "json",
-        data: { content: contenido },
-        headers: {"X-Auth-Token":authToken.token}
-        
-        }).done(function(data, status, jqxhr){
-        data.links=linksToMap(data.links);
-        window.location.reload();
-    }).fail(function(){
-        console.log('Error');
-    });
-}
-
-function borrarComment(contenido, uri){
-    var authToken = JSON.parse(sessionStorage["auth-token"]);
-    $.ajax({
-        url: uri,
-        type: 'DELETE',
-        crossDomain: true,
-        dataType: "json",
-        data: { content: contenido },
-        headers: {"X-Auth-Token":authToken.token}
-        
-    }).done(function(data, status, jqxhr){
-        data.links=linksToMap(data.links);
-        window.location.reload();
-    }).fail(function(){
-        console.log('Error');
-    });
-}
-
-function getComment(uri){
-    var authToken = JSON.parse(sessionStorage["auth-token"]);
-    $.ajax({
-        url: uri,
-        type: 'GET',
-        crossDomain: true,
-        dataType: "json",
-        headers: {"X-Auth-Token" : authToken.token}
-    }).done(function(data, status, jqxhr){
-        var comentario = data.stings;
-        
-            $('<p><strong>Userid: </strong>' + comentario.userid + '<br>').appendTo($('#comentario_result'));
-            $('<strong>Contenido: </strong>' + comentario.contenido + ' € <br>').appendTo($('#comentario_result'));
-
-            $('</p>').appendTo($('#comment_result'));
-        
-        
-        data.links=linksToMap(data.links);
-    }).fail(function(){
-        console.log("ERROR");
-    });
 }
