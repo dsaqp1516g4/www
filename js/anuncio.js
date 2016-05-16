@@ -1,4 +1,4 @@
-var BASE_URI = "http://localhost:8080/music4you"
+var BASE_URI = "http://192.168.1.107:8080/music4you"
 
 
 $(function(){

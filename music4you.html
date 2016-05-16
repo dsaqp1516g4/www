@@ -39,24 +39,22 @@
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                <ul class="nav navbar-nav">
-                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#anuncios">Mensajería</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#download">Usuario x</a>
-                    </li>
-                    <li>
-                        <a href="#" id="form-signout">Cerrar sesión</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+                       <div id="navbar" class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a id="aProfile" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a id="aGoToProfile" href="miperfil.html">Mi Cuenta</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a id="aMisAds" href="music4you.html">Mis Anuncios</a></li>
+                <li role="separator" class="divider"></li>
+                  <li><a id="aMessages" href="mensajes.html">Mensajes</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a id="aCloseSession">Cerrar sesion</a></li>
+              </ul>
+            </li>
+          </ul><!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
     </nav>
@@ -65,6 +63,8 @@
     
     
     <!-- Modal para crear anuncio -->
+    
+
     
     <div id="CrearAnuncio" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -320,11 +320,25 @@
                     </dl>
                     <button class="usuario">Filtrar</button>
                 </div>
-            <div class="col-sm-6"> 
+    
+            <!--- Barra buscador Buscador-->
+<div class="container text-center" > 
+
+            <div class="col-xs-10 col-center-block">
+
+                        <h1 class="brand-heading">Music4You</h1>
+<p class="intro-text">Busca a tu gusto</p>
+  <input type="text" class="form-control" id="buscador" placeholder="Busca por genero, ciudad, o grupo en concreto">
+                    
+
+                </div></div>
+                <!--- Anuncios y eventos-->
+
+            <div class="col-sm-8"> 
                 <h2>Anuncios</h2>
                 <p id="anuncio_result"></p>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <h2>Eventos</h2>
                 <p id="event_result"></p>
             </div>
