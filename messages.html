@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<meta name="description" content="Apartment Share  page">
+		<meta name="author" content="DSA">
+
+		<title>Apartment Share</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    
+	</head>
+
+	<body>
+		<!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand">Mis Pisos</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+        
+            <ul class="nav navbar-nav navbar-left">
+                <li><a id="Quiensomos" href="quiensomoslogueado.html">Acerca de nosotros</a></li>
+                <li><a id="indexusuario" href="indexusuario.html">Volver al índice</a></li>
+            </ul>
+          
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a id="aProfile" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a id="aGoToProfile">Mi Cuenta</a></li>
+                <li role="separator" class="divider"></li>
+                 <li><a id="aMisPisos" href="apartmentshare.html">Mis Pisos</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a id="aCloseSession">Cerrar Sesión</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+    <center>
+      
+    </center>
+
+    <div class="container">
+    	<div id="stings">
+      <div class="jumbotron text-center ">
+
+        <!--
+    		<div class="row">
+    		<button id="buttonUpdate" type="button" class="btn btn-default center-block">Update</button>
+    		</div>
+        -->
+
+
+	    	<div class="row row-margin">
+	    		<div class="col-sm-8 col-center-block">
+	    			<div id="stings-list" class="list-group">
+	    				<a class="list-group-item">
+	    					<p class="list-group-item-text">Si ves esto es que no ha listado nada</p>
+						<img src="" id="foto" alt="Dos niñas de la mano">
+	    					<h6 class="list-group-item-heading" align="right">Cabecera</h6>	
+	    				</a>
+	    			</div>
+	    		</div>
+	    	</div>
+	    	<div class="row">
+
+        <!--
+	    	<form id="formPrevious">
+    			<button id="buttonPrevious" type="submit" class="btn btn-default center-block">Previous</button>
+    		</form>
+        -->
+
+    		</div>
+        <a class="btn btn-small btn-primary" href="crearpiso.html"  type="submit">Crear un piso</a>
+        <br><br>
+        <a class="btn btn-small btn-danger" href="indexusuario.html"  type="submit">Atrás</a>
+    	</div>
+      </div>
+    </div> <!-- /container -->    
+
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="js/api.js"></script>
+	<script src="js/messages.js"></script>
+	</body>
+</html>

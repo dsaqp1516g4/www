@@ -1,6 +1,15 @@
-var BASE_URI = "http://192.168.1.107:8080/music4you"
+var BASE_URI = "http://10.83.54.14:8080/music4you"
 
+$(function(){
+   getCurrentUserProfile(function(user){
+	$("#stings-list").empty();
+      $("#stings-list").append(listItemHTML(user.loginid, user.fullname, user.email));
+      $("#aProfile").text(user.fullname + ' ');
+      $("#aProfile").append('<span class="caret"></span>');
+	   
+   });
 
+});
 $(function(){
     //var authToken = JSON.parse(sessionStorage["auth-token"]);
     //var currentAnunciosUri = authToken["links"]["current-anuncios"].uri;

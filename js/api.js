@@ -1,4 +1,4 @@
-﻿var BASE_URI = "http://192.168.1.107:8080/music4you"
+﻿var BASE_URI = "http://10.83.10.182:8080/music4you"
 
 $(function(){
     
@@ -15,7 +15,24 @@ function linksToMap(links){
 
 	return map;
 }
+function loadFlats(uri, complete){
 
+	var authToken = JSON.parse(sessionStorage["auth-token"]);
+	var uri = authToken["links"]["current-flat"].uri;
+	console.log(authToken.token);
+	$.ajax({
+		    	type: 'GET',
+		   		url: uri,
+		    	headers: {
+				"X-Auth-Token":authToken.token
+		    	}
+		    }).done(function(flats){
+			flats.links = linksToMap(flats.links);
+			complete(flats);
+		})
+		.fail(function(){});
+
+}
 function EliminarUsuario(complete){
     var authToken = JSON.parse(sessionStorage["auth-token"]);
     var uri = authToken["links"]["user-profile"].uri;
@@ -346,6 +363,34 @@ function registrarUsuario (loginid, password, fullname, email, complete){
 			}
 		);
 	});
+}
+
+function putUsuario(loginid, fullname, email, complete){
+	var authToken = JSON.parse(sessionStorage["auth-token"]);
+	var uri = authToken["links"]["user-profile"].uri;
+	var id= authToken.userid;
+	var usuariojson= "application/vnd.dsa.music4you.user+json";
+
+	var data = {"id":id,"loginid":loginid,"fullname":fullname,"email":email}
+
+		$.ajax({
+			type: 'PUT',
+			url: uri,
+			crossDomain : true,
+			dataType : 'raw',
+			contentType:"application/raw",  
+			data : JSON.stringify(data),
+ 
+		    	headers: {
+				"X-Auth-Token":authToken.token,
+				"Content-Type":usuariojson
+			
+		    	}
+	    }).done(function(user){
+			user.links = linksToMap(user.links);
+			complete(user);
+		})
+		.fail(function(){});
 }
 
 
