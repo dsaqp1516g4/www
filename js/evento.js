@@ -1,6 +1,3 @@
-var BASE_URI = "http://192.168.1.107:8080/music4you"
-
-
 $(function(){
     //var authToken = JSON.parse(sessionStorage["auth-token"]);
     //var currentAnunciosUri = authToken["links"]["current-anuncios"].uri;

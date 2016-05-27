@@ -49,9 +49,9 @@
                 <li role="separator" class="divider"></li>
                 <li><a id="aMisAds" href="music4you.html">Mis Anuncios</a></li>
                 <li role="separator" class="divider"></li>
-                  <li><a id="aMessages" href="mensajes.html">Mensajes</a></li>
+                  <li><a id="aMessages" href="mensajeria.html">Mensajes</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a id="aCloseSession">Cerrar sesion</a></li>
+                <li><a href="#" id="form-signout">Cerrar sesión</a></li>
               </ul>
             </li>
           </ul><!-- /.navbar-collapse -->
@@ -186,7 +186,6 @@
         <div class="modal-body" style="color:black">
             <div id="anuncio"></div>
             <div id="comentario_result"></div>
-            <!-- <img src="./img/user-trash.png" onclick="borrarComment(A9710E721F8311E699FFA41731CD71C1);" style="cursor:pointer"></img> Fallo al ejecutar función de borrado ¿? --> 
         </div>
         <div class="modal-footer">
             <form class="form-comentario" id="form-comentario">
@@ -265,6 +264,13 @@
     
             <section class="container download-section text-center">
                <div class="row">
+                   <!--- Barra buscador Buscador-->
+                   <div class="col-sm-9 col-sm-offset-2">
+                   <div class="intro-text">Busca a tu gusto</div>
+                    <input type="text" class="form-control" id="buscador" placeholder="Busca por género, ciudad, o grupo en concreto"><br>
+                   </div>
+                </div>
+                <div class="row">
                 <div class="col-sm-2">
                     <h2>Menú</h2>
                     <button href="#" data-toggle="modal" data-target="#CrearAnuncio">Crear anuncio</button><br><br>
@@ -321,25 +327,13 @@
                     </dl>
                     <button class="usuario">Filtrar</button>
                 </div>
-    
-            <!--- Barra buscador Buscador-->
-<div class="container text-center" > 
-
-            <div class="col-xs-10 col-center-block">
-
-                        <h1 class="brand-heading">Music4You</h1>
-<p class="intro-text">Busca a tu gusto</p>
-  <input type="text" class="form-control" id="buscador" placeholder="Busca por genero, ciudad, o grupo en concreto">
-                    
-
-                </div></div>
                 <!--- Anuncios y eventos-->
 
-            <div class="col-sm-8"> 
+            <div class="col-sm-6"> 
                 <h2>Anuncios</h2>
                 <p id="anuncio_result"></p>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <h2>Eventos</h2>
                 <p id="event_result"></p>
             </div>
@@ -424,10 +418,11 @@
                 
     <script src="js/api.js"></script>
     <script src="js/anuncio.js"></script>
-    <script src="js/comentario.js"></script>
+    <!-- <script src="js/comentario.js"></script> -->
     <script src="js/evento.js"></script>
+    <script src="js/user.js"></script>
     <script src="js/login.js"></script>
-	<script src="js/perfil.js"></script>
+    <script src="js/perfil.js"></script> -->
 
 </body>
 

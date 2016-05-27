@@ -1,2 +1,6 @@
-var BASE_URI= "http://0.0.0.0:8080/music4you"
-
+$(function(){
+getCurrentUserProfile(function(user){
+      $("#aProfile").text(user.fullname + ' ');
+      $("#aProfile").append('<span class="caret"></span>');
+   });
+});

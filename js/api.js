@@ -1,5 +1,6 @@
 var BASE_URI = "http://localhost:8080/music4you"
 var WEBSERVER = "./img/"
+var userglobal;
 
 
 $(function(){
@@ -17,6 +18,7 @@ function linksToMap(links){
 
 	return map;
 }
+
 function loadFlats(uri, complete){
 
 	var authToken = JSON.parse(sessionStorage["auth-token"]);
@@ -35,22 +37,7 @@ function loadFlats(uri, complete){
 		.fail(function(){});
 
 }
-function EliminarUsuario(complete){
-    var authToken = JSON.parse(sessionStorage["auth-token"]);
-    var uri = authToken["links"]["user-profile"].uri;
-    console.log(authToken.token);
-    $.ajax({
-        type: 'DELETE',
-        url: uri,
-        headers: {
-            "X-Auth-Token":authToken.token
-        }
-    }).done(function(data) { 
-        sessionStorage.removeItem("api");
-        sessionStorage.removeItem("auth-token");
-        complete();
-    }).fail(function(){});
-}
+
 
 function loadAPI(complete){
 	$.get(BASE_URI)
@@ -63,17 +50,6 @@ function loadAPI(complete){
 
 		});
 } 
-
-function getCurrentUserProfile(complete){
-	var authToken = JSON.parse(sessionStorage["auth-token"]);
-	var uri = authToken["links"]["user-profile"].uri;
-	$.get(uri)
-		.done(function(user){
-			user.links = linksToMap(user.links);
-			complete(user);
-		})
-		.fail(function(){});
-}
 
 /*       *
  *       *
@@ -123,6 +99,93 @@ function logout(complete){
         });
 } 
 
+/*         *
+ *         *
+ * USUARIO *
+ *         * 
+ *         */
+
+function getCurrentUserProfile(complete){
+	var authToken = JSON.parse(sessionStorage["auth-token"]);
+	var uri = authToken["links"]["user-profile"].uri;
+	$.get(uri)
+		.done(function(user){
+                        userglobal=user;
+			user.links = linksToMap(user.links);
+			complete(user);
+		})
+		.fail(function(){});
+}
+
+function registrarUsuario (loginid, password, fullname, email, complete){
+    loadAPI(function(){
+        var api = JSON.parse(sessionStorage.api);
+        var uri= BASE_URI + "/users";
+        
+    $.post(uri,
+                        {
+				loginid: loginid,
+				password: password,
+				fullname: fullname,
+				email: email
+				
+
+			}).done(function(authToken){
+				authToken.links = linksToMap(authToken.links);
+				sessionStorage["createUser"] = JSON.stringify(authToken);
+				complete();
+			}).fail(function(jqXHR, textStatus, errorThrown){
+				var error = jqXHR.responseJSON;
+				alert(error.reason);
+			}
+		);
+	});
+}
+
+function putUsuario(loginid, fullname, email, complete){
+	var authToken = JSON.parse(sessionStorage["auth-token"]);
+	var uri = authToken["links"]["user-profile"].uri;
+	var id= authToken.userid;
+	var usuariojson= "application/vnd.dsa.music4you.user+json";
+
+	var data = {"id":id,"loginid":loginid,"fullname":fullname,"email":email}
+
+		$.ajax({
+			type: 'PUT',
+			url: uri,
+			crossDomain : true,
+			dataType : 'raw',
+			contentType:"application/raw",  
+			data : JSON.stringify(data),
+ 
+		    	headers: {
+				"X-Auth-Token":authToken.token,
+				"Content-Type":usuariojson
+			
+		    	}
+	    }).done(function(user){
+			user.links = linksToMap(user.links);
+			complete(user);
+		})
+		.fail(function(){});
+}
+
+function EliminarUsuario(complete){
+    var authToken = JSON.parse(sessionStorage["auth-token"]);
+    var uri = authToken["links"]["user-profile"].uri;
+    console.log(authToken.token);
+    $.ajax({
+        type: 'DELETE',
+        url: uri,
+        headers: {
+            "X-Auth-Token":authToken.token
+        }
+    }).done(function(data) { 
+        sessionStorage.removeItem("api");
+        sessionStorage.removeItem("auth-token");
+        complete();
+    }).fail(function(){});
+}
 
 /*        *
  *        *
@@ -177,7 +240,6 @@ function loadAnuncios(){
                                     console.log(i);
                                     $('<div class="list-group"><a href="#" id="'+i+'anuncio" class="list-group-item" data-toggle="modal" data-target="#VerAnuncio"><h4 class="list-group-item-heading">' + anuncio.subject +'</h4></a>').appendTo($('#anuncio_result'));
                                     $('<p class="list-group-item-text">').appendTo($('#anuncio_result'));
-                                    $('<strong>Userid: </strong>' + anuncio.userid + '<br>').appendTo($('#anuncio_result'));
                                     $('<strong>Precio: </strong>' + anuncio.precio + ' € <br>').appendTo($('#anuncio_result'));
                                     if(anuncio.type=1){
                                         var tipo="artista";
@@ -303,12 +365,11 @@ function getAnuncio(uri){
                 $.each(events, function(i, v) {
 					var evento = v;
                                         console.log(i);
-                                        $('<div class="list-group"><a href="#" class="list-group-item"><h4 class="list-group-item-heading">' + evento.titol +'</h4></a>').appendTo($('#event_result'));
+                                        $('<div class="list-group"><a href="#" id="'+i+'event" class="list-group-item" data-toggle="modal" data-target="#VerEvento"><h4 class="list-group-item-heading">' + evento.titol +'</h4></a>').appendTo($('#event_result'));
                                         $('<p class="list-group-item-text">').appendTo($('#event_result'));
                                         $('<div>' + evento.text + '</div><br>').appendTo($('#event_result'));
                                         $('<strong>Fecha de inicio: </strong>' + evento.startDate + '<br>').appendTo($('#event_result'));
                                         $('</p>').appendTo($('#event_result'));
-                                        $('<a href="#" id="'+i+'event" class="list-group-item" data-toggle="modal" data-target="#VerEvento">Más...</a>').appendTo($('#event_result'));
                                         $("#"+i+"event").click(function(){
                                         //event.preventDefault();
                                         console.log("ID:" + evento.id);
@@ -352,66 +413,17 @@ function getEvent(uri){
         $("#event").replaceWith("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>" + '<p id="comment_result"></p>');
     });
 }
+/*       *
+ * FECHA *
+ *       */
 
-
-
-/*
- * USUARIOS *
- *          */
-
-
-function registrarUsuario (loginid, password, fullname, email, complete){
-    loadAPI(function(){
-        var api = JSON.parse(sessionStorage.api);
-        var uri= BASE_URI + "/users";
-        
-    $.post(uri,
-                        {
-				loginid: loginid,
-				password: password,
-				fullname: fullname,
-				email: email
-				
-
-			}).done(function(authToken){
-				authToken.links = linksToMap(authToken.links);
-				sessionStorage["createUser"] = JSON.stringify(authToken);
-				complete();
-			}).fail(function(jqXHR, textStatus, errorThrown){
-				var error = jqXHR.responseJSON;
-				alert(error.reason);
-			}
-		);
-	});
-}
-
-function putUsuario(loginid, fullname, email, complete){
-	var authToken = JSON.parse(sessionStorage["auth-token"]);
-	var uri = authToken["links"]["user-profile"].uri;
-	var id= authToken.userid;
-	var usuariojson= "application/vnd.dsa.music4you.user+json";
-
-	var data = {"id":id,"loginid":loginid,"fullname":fullname,"email":email}
-
-		$.ajax({
-			type: 'PUT',
-			url: uri,
-			crossDomain : true,
-			dataType : 'raw',
-			contentType:"application/raw",  
-			data : JSON.stringify(data),
- 
-		    	headers: {
-				"X-Auth-Token":authToken.token,
-				"Content-Type":usuariojson
-			
-		    	}
-	    }).done(function(user){
-			user.links = linksToMap(user.links);
-			complete(user);
-		})
-		.fail(function(){});
-}
+var date;
+var hours = date.getHours();
+var minutes = date.getMinutes();
+var seconds = date.getSeconds();
+var day = date.getDate();
+var month = date.getMonth() + 1;
+var year = date.getFullYear();
 
 
 
@@ -465,8 +477,13 @@ function loadComentarios(eventid, anuncioid){
         var comentarios = data.comments;
         $.each(comentarios, function(i, v) {
                                     var comentario = v;
-                                    console.log(comentario.content);
-                                    $('#comentario_result').replaceWith('<div id="comment_result"><h5>Comentarios</h5>' + comentario.content + ' por ' + comentario.creator+ ' el ' + comentario.fecha + '<img src="./img/user-trash.png" onclick="borrarComment(' + comentario.id + ');" style="cursor:pointer"></img>' +  '<img src="editar.png" onClick="editComment(' + comentario.id +')"></img></div>');
+                                    date = new Date(comentario.creationTimestamp)
+                                    if(comentario.userid==userglobal.id){
+                                    $('#comentario_result').replaceWith('<div id="comment_result"><h5>Comentarios</h5>' + comentario.content + ' por ' + comentario.userid + ' el ' + date + '<br>' +'<img src="' + WEBSERVER + 'user-trash.png" onclick="borrarComment(\'' + comentario.id + '\');" style="cursor:pointer"></img>' +  '<img src="' + WEBSERVER + 'editar.png" onClick="editComment(\'' + comentario.id +'\')" style="cursor:pointer"></img></div>');
+                                    }
+                                    else{
+                                    $('#comentario_result').replaceWith('<div id="comment_result"><h5>Comentarios</h5>' + comentario.content + ' por ' + comentario.userid + ' el ' + date + '<br></div>');
+                                    }
                                     
                                     //$('<div class="list-group"><a href="#" id="'+i+'anuncio" class="list-group-item" data-toggle="modal" data-target="#VerAnuncio"><h4 class="list-group-item-heading">' + anuncio.subject +'</h4></a>').appendTo($('#anuncio_result'));
                                     //$('<p class="list-group-item-text">').appendTo($('#anuncio_result'));
@@ -504,7 +521,12 @@ function borrarComment(id){
         //window.location.reload();
     }).fail(function(){
         console.log('Error');
+        window.alert('Falló el borrado de comentario');
     });
+}
+
+function editComment(id){
+    window.alert("¡Implementa la edición Hixam!");
 }
 
 /*
@@ -556,4 +578,4 @@ function loadPlaylist(){
         $("#anuncio_result").text("");
         $("#anuncio_result").append("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>");
     });
-}*/
+}

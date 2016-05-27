@@ -17,13 +17,13 @@ $( "#form-register" ).submit(function( event ) {
 	
 	else{
 
-  registrarUsuario($('#loginid').val(), $('#password').val(), $('#fullname').val(), $('#email').val(), function(){
-  	console.log("change");
-  	window.location.replace('index.html');
-	  });
+                registrarUsuario($('#loginid').val(), $('#password').val(), $('#fullname').val(), $('#email').val(), function(){
+                console.log("change");
+                window.location.replace('index.html');
+                });
+        }
   //login($('#loginid').val(), $('#password').val(), function(){
   //      console.log("login");
   //      window.location.replace('music4you.html');
-	});
 });
 
