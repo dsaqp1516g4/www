@@ -525,40 +525,40 @@ function editComment(id){
  * PLAYLIST  *
  *           */
 
+var song;
+
 function loadPlaylist(){
-    $('#coment_result').text(''); 
+    $('#playlist_result').text(''); 
     
-    //var authToken = JSON.parse(sessionStorage["auth-token"]);
-    var uri = BASE_URI+"/anuncio";
+    var authToken = JSON.parse(sessionStorage["auth-token"]);
+    var uri = BASE_URI+"/songs";
     $.ajax({
         type : 'GET',
         url : uri,
-        //headers: {"X-Auth-Token":authToken.token},
+        headers: {"X-Auth-Token":authToken.token},
         dataType : 'json',
         crossDomain : true,
     }).done(function(data, status, jqxhr){
         
-        var anuncios = data.stings;
-        $.each(anuncios, function(i, v) {
-                                    var anuncio = v;
+        var canciones = data.playlists;
+        $.each(canciones, function(i, v) {
+                                    song = v;
                                     console.log(i);
-                                    $('<div class="list-group"><a href="#" id="'+i+'anuncio" class="list-group-item" data-toggle="modal" data-target="#VerAnuncio"><h4 class="list-group-item-heading">' + anuncio.subject +'</h4></a>').appendTo($('#anuncio_result'));
-                                    $('<p class="list-group-item-text">').appendTo($('#anuncio_result'));
-                                    $('<strong>Userid: </strong>' + anuncio.userid + '<br>').appendTo($('#anuncio_result'));
-                                    $('<strong>Precio: </strong>' + anuncio.precio + ' € <br>').appendTo($('#anuncio_result'));
-                                    if(anuncio.type=1){
-                                        var tipo="artista";
+                                    $('<div class="list-group"><a href="#" id="'+i+'song" class="list-group-item" data-toggle="modal" data-target="#VerSong"><h4 class="list-group-item-heading">' + song.artist + ' - ' + song.title + '</h4></a>').appendTo($('#playlist_result'));
+                                    $('<p class="list-group-item-text">').appendTo($('#song_result'));
+                                    $('<audio src='+ song.audio + '"><br>').appendTo($('#playlist_result'));
+                                    if (song.youtubelink!=null){
+                                        var link = song.youtubelink;
+                                        var trozos = link.split('=v?');
+                                        console.log(trozos[0], trozos[1]);
                                     }
-                                    else{
-                                        var tipo="registrado";
-                                    }
-                                    $('<strong>Usuario: </strong>' + tipo + '<br>').appendTo($('#anuncio_result'));
-                                    $('</p>').appendTo($('#anuncio_result'));
-                                    $("#"+i+"anuncio").click(function(){
+                                    $('<iframe width="480" height="270" src="https://www.youtube.com/embed/cedoBlUvBlI" frameborder="0" allowfullscreen></iframe>').appendTo($('#playlist_result'));
+                                    $('</p>').appendTo($('#song_result'));
+                                    $("#"+i+"song").click(function(){
                                     //event.preventDefault();
-                                    console.log("ID:" + anuncio.id);
-                                    getAnuncio(BASE_URI+"/anuncio/"+anuncio.id, function(){
-    
+                                    console.log("ID:" + song.id);
+                                    getSong(BASE_URI+"/songs/"+song.id, function(){
+                                    
                                     });
                                     });
         });
@@ -567,7 +567,8 @@ function loadPlaylist(){
         //var anuncioCollection = new AnuncioCollection(response);
         //var html = anuncioCollection.toHTML();
     }).fail(function(jqXHR, textStatus){
-        $("#anuncio_result").text("");
-        $("#anuncio_result").append("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>");
+        $("#playlist_result").text("");
+        $("#playlist_result").append("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>");
     });
 }
+

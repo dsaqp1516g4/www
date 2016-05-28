@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Music4You - Tu portal de artistas - Perfil</title>
+    <title>Music4You - Tu portal de artistas</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -22,7 +22,9 @@
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 
 </head>
-  <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
     <!-- Navigation -->
     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -32,12 +34,30 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand page-scroll" href="#page-top">
-                    <i class="fa fa-play-circle"></i>  <span class="light">Inicio</span> Music4You
+                    <i class="fa fa-play-circle"></i> <span class="light">Inicio</span> Music4You
                 </a>
-            </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <!-- <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a id="aProfile" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a id="aGoToProfile" href="perfil.html">Mi Cuenta</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a id="aMisAds" href="music4you.html">Mis Anuncios</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a id="aMessages" href="mensajeria.html">Mensajes</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#" id="form-signout">Cerrar sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <!-- <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
                     <li class="hidden">
                         <a href="#page-top"></a>
@@ -53,75 +73,84 @@
                     </li>
                 </ul>
             </div> -->
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
+                <!-- /.navbar-collapse -->
+                <!-- /.container -->
+            </div>
     </nav>
 
-    <!-- Intro Header -->
-    <header class="intro">
-        <div class="intro-body">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <h1 class="brand-heading">Music4You</h1>
-                        <p class="intro-text">Tu buscador de artistas y músicos para tus eventos. <br>Aquí, lo que sea.</p>
-                        <div class="col-md-12">
-                            <form class="form-signin" id="form-signin">
-                                <h2 class="form-signin-heading">Por favor, inicia sesión</h2>
-                                <h3>o <a href="#" data-toggle="modal" data-target="#myModal">regístrate</a> o entra como <a href="music4you.html">invitado</a></h3>
-                                <!-- <h4>Nombre de usuario</h4> -->
-                                <input type="text" id="inputLoginid" class="form-control" placeholder="Usuario" required autofocus>
-                                <br>
-                                <!-- <h4>Contraseña</h4> -->
-                                <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
-                                <br>
-                                <button class="btn btn-lg btn-primary btn-block" id="login_btn" type="submit">Inicia sesión</button>
-                                </form>
-                                
-                        </div> <!-- /container -->
-                        </a>
+<section class="container download-section text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-center-block">
+                <p class="intro-text">Perfil:</p>
+                <div class="jumbotron text-center">
+                    <div id="stings">
+                        <div class="row row-margin">
+                            <div class="col-md-6">
+                                <div id="stings-list" class="list-group">
+                                    <a class="list-group-item">
+                                        <p class="list-group-item-text">Si ves esto, es que no funcionó</p>
+                                        <h6 class="list-group-item-heading" align="right">Cargando...</h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <form id="formEliminarusuario">
+                                <a class="btn btn-large btn-primary" href="editarcuenta.html" style="float:center;" type="submit">Editar Cuenta</a>
+                                <!-- <button id="buttonEliminarusuario" type="submit" class="btn btn-warning " onClick="document.location.reload();">Eliminar mi Cuenta</button> 
+
+        -->
+
+
+                                <button type="button" align="center" class="btn btn-warning" href="#delete" data-toggle="modal" id="deleteprofile">Eliminar Usuario</button>
+
+                                <!-- /container -->
+                        </div>
                     </div>
                 </div>
+
             </div>
-        </div>
-    </header>
+            <div class="col-md-6">
+                <p class="intro-text">Canciones subidas:</p>
+                    <div id="playlist_result">Hola!!!!!
+                    </div>
+            </div>
+</section>
     <!-- Register modal -->
 
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-    <!-- Modal content-->
+<!-- Modal para eliminar usuario -->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h2 class="modal-title" style="color:black">Regístrate</h2>
-        </div>
-        <div class="modal-body">
-            <form class="form-register" id="form-register">
-          <label for="loginid" class="sr-only">Username</label>
-            <input type="text" id="loginid" class="form-control" placeholder="Nombre de Usuario" required autofocus>
+            <div class="modal-header modal-header-success">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Eliminar usuario</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form id="songForm" class="form-horizontal" role="form">
+                        <div class="row-md-4">
+                            <div class="form-group">
+                                <label for="inputTitle">¿Seguro que quieres eliminar tu cuenta?</label>
+                                <br>
 
 
-          <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" class="form-control" placeholder="Contraseña" required>
+                                <button id="canceldeleteprofile" type="submit" class="btn btn-default">Cancelar</button>
+                                <button id="deleteprofilefinal" type="submit" class="btn btn-default">Borrar</button>
 
-  
-          <label for="fullname" class="sr-only">fullname</label>
-            <input type="text" id="fullname" class="form-control" placeholder="Nombre completo (Nombre y apellidos)" required>
+                            </div>
+                    </form>
+                    </div>
 
-           <label for="email" class="sr-only">Email</label>
-            <input type="text" id="email" class="form-control" placeholder="Correo electrónico" required>
-      </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-success" id='registrar' type="submit">Registrarse</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        </div>
-        </div>
-        </div>
+        <!-- /.modal-dialog -->
     </div>
-    
+</div>
+
     <!-- Footer -->
     <footer>
         <div class="container text-center">
@@ -143,6 +172,9 @@
     <script src="js/api.js"></script>
     <!-- <script src="js/registro.js"></script> -->
     <script src="js/login.js"></script>
+    <script src="js/perfil.js"></script>
+    <script src="js/playlist.js"></script>
 
 </body>
+
 </html>
