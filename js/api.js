@@ -311,6 +311,7 @@ function borrarAnuncio(contenido, uri){
     });
 }
 
+var anuncio1;
 function getAnuncio(uri){
     var authToken = JSON.parse(sessionStorage["auth-token"]);
     $.ajax({
@@ -320,7 +321,7 @@ function getAnuncio(uri){
         dataType: "json",
         headers: {"X-Auth-Token" : authToken.token}
     }).done(function(data, status, jqxhr){
-        var anuncio1 = data;
+        anuncio1 = data;
         $( "#anuncio_subject" ).replaceWith('<h2 id="anuncio_subject" class="modal-title" style="color:black">'+anuncio1.subject+'</h2>');
         if(anuncio1.type=1){
                 var tipo="artista";
@@ -417,44 +418,42 @@ function getEvent(uri){
  * FECHA *
  *       */
 
-var date;
-var hours = date.getHours();
-var minutes = date.getMinutes();
-var seconds = date.getSeconds();
-var day = date.getDate();
-var month = date.getMonth() + 1;
-var year = date.getFullYear();
-
-
+var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
 
 /*              *
  *  COMENTARIOS *
  *              */
  
- function crearComent(userid, eventid, content, uri){
+/* OK */
+
+ function crearComment(anuncioid, eventid, content){
     var authToken = JSON.parse(sessionStorage["auth-token"]);
     
-    var comentario = new Object();
-    comentario.userid = userid;
-    comentario.eventid = eventid;
-    comentario.content = content;
-    
+    //var comentario = new Object();
+    //comentario.anuncioid = anuncioid;
+    //comentario.eventid = eventid;
+    //comentario.content = content;
     
     $.ajax({
-        url: uri,
+        url: BASE_URI+"/comments",
         type: 'POST',
         crossDomain: true,
-        dataType: "json",
-        data: { content: comments
+        //dataType: "json",
+        data: {     anuncioid: anuncioid,
+                    eventid: eventid,
+                    content: content
         },
         headers: {"X-Auth-Token":authToken.token}
         
         }).done(function(data, status, jqxhr){
+            
         data.links=linksToMap(data.links);
-        window.location.reload();
+        //window.location.reload();
+        
     }).fail(function(){
         console.log('Error');
     });
+    
 }
 
 function loadComentarios(eventid, anuncioid){
@@ -473,30 +472,21 @@ function loadComentarios(eventid, anuncioid){
         dataType : 'json',
         crossDomain : true,
     }).done(function(data, status, jqxhr){
-        
+        $('#comment_result').replaceWith('<div id="comment_result"><h5>Comentarios</h5></div>');
         var comentarios = data.comments;
         $.each(comentarios, function(i, v) {
                                     var comentario = v;
-                                    date = new Date(comentario.creationTimestamp)
+                                    var date = new Date(comentario.creationTimestamp);
+                                    var fecha = date.toLocaleDateString('es-ES', options);
                                     if(comentario.userid==userglobal.id){
-                                    $('#comentario_result').replaceWith('<div id="comment_result"><h5>Comentarios</h5>' + comentario.content + ' por ' + comentario.userid + ' el ' + date + '<br>' +'<img src="' + WEBSERVER + 'user-trash.png" onclick="borrarComment(\'' + comentario.id + '\');" style="cursor:pointer"></img>' +  '<img src="' + WEBSERVER + 'editar.png" onClick="editComment(\'' + comentario.id +'\')" style="cursor:pointer"></img></div>');
+                                         $('<div style="border-style:dotted" id="' + comentario.id +'"><br>' + comentario.content + ' por ' + comentario.creator + ' el ' + fecha +'<img align="right" src="' + WEBSERVER + 'user-trash.png" onclick="borrarComment(\'' + comentario.id + '\');" style="cursor:pointer,vertical-align:bottom"></img>' +  '<img align="right" src="' + WEBSERVER + 'editar.png" onClick="editComment(\'' + comentario.id +'\')" style="cursor:pointer"></img></div>').appendTo($('#comment_result'));
+
                                     }
                                     else{
-                                    $('#comentario_result').replaceWith('<div id="comment_result"><h5>Comentarios</h5>' + comentario.content + ' por ' + comentario.userid + ' el ' + date + '<br></div>');
+                                        $('<div id="' + comentario.id +'"><br>' + comentario.content + ' por ' + comentario.creator + ' el ' + fecha + '</div><br>').appendTo($('#comment_result'));
+                                    
                                     }
                                     
-                                    //$('<div class="list-group"><a href="#" id="'+i+'anuncio" class="list-group-item" data-toggle="modal" data-target="#VerAnuncio"><h4 class="list-group-item-heading">' + anuncio.subject +'</h4></a>').appendTo($('#anuncio_result'));
-                                    //$('<p class="list-group-item-text">').appendTo($('#anuncio_result'));
-                                    //$('<strong>Userid: </strong>' + anuncio.userid + '<br>').appendTo($('#anuncio_result'));
-                                    //$('<strong>Precio: </strong>' + anuncio.precio + ' € <br>').appendTo($('#anuncio_result'));
-
-                                    //$('</p>').appendTo($('#anuncio_result'));
-                                    //$("#"+i+"anuncio").click(function(){
-                                    //event.preventDefault();
-                                    //console.log("ID:" + anuncio.id);
-                                    //getAnuncio(BASE_URI+"/anuncio/"+anuncio.id, function(){
-    
-                                    //});
         });
         //data.links=linksToMap(data.links);
     }).fail(function(jqXHR, textStatus){
@@ -504,6 +494,8 @@ function loadComentarios(eventid, anuncioid){
         $("#comment_result").replaceWith("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>");
     });
 }
+
+/* OK */
 
 function borrarComment(id){
     var authToken = JSON.parse(sessionStorage["auth-token"]);
@@ -518,7 +510,7 @@ function borrarComment(id){
         
     }).done(function(data, status, jqxhr){
         //data.links=linksToMap(data.links);
-        //window.location.reload();
+        $('#' + id).hide(); 
     }).fail(function(){
         console.log('Error');
         window.alert('Falló el borrado de comentario');

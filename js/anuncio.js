@@ -11,9 +11,16 @@ $(function(){
 
 $( "#form-anuncio" ).submit(function( event ) {
   event.preventDefault();
-  crearAnuncio($("#inputSubject").val(), $("#inputDescription").val(), $("#inputPrice").val(), $("#inputType").val(), function(){
+  crearAnuncio($('#inputSubject').val(), $('#inputDescription').val(), $('#inputPrice').val(), $('#inputType').val(), function(){
   	console.log("change");
   	window.location.replace('music4you.html');
+  });
+});
+
+$( "#form-comentario2").submit(function( event ) {
+    event.preventDefault();
+    crearComment(anuncio1.id, null, $('#inputComment2').val(), function(){
+    //window.location.replace('music4you.html');
   });
 });
 
