@@ -1,4 +1,4 @@
-var BASE_URI = "http://localhost:8080/music4you"
+var BASE_URI = "http://192.168.1.107:8080/music4you"
 var WEBSERVER = "./img/"
 var userglobal;
 
@@ -24,12 +24,12 @@ function loadFlats(uri, complete){
 	var authToken = JSON.parse(sessionStorage["auth-token"]);
 	var uri = authToken["links"]["current-flat"].uri;
 	console.log(authToken.token);
-	$.ajax({
+	$.ajax({        
 		    	type: 'GET',
 		   		url: uri,
 		    	headers: {
 				"X-Auth-Token":authToken.token
-		    	}
+		    	}    
 		    }).done(function(flats){
 			flats.links = linksToMap(flats.links);
 			complete(flats);
@@ -70,6 +70,8 @@ function login(loginid, password, complete){
 			}).done(function(authToken){
 				authToken.links = linksToMap(authToken.links);
 				sessionStorage["auth-token"] = JSON.stringify(authToken);
+                    console.log(authToken.token);
+alert("to");
                                // window.location.replace("miperfil.html");
 				complete();
 			}).fail(function(jqXHR, textStatus, errorThrown){
@@ -265,6 +267,43 @@ function loadAnuncios(){
         $("#anuncio_result").text("");
         $("#anuncio_result").append("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>");
     });
+
+//mensajeria
+function enviarMessage(loginid, destinatario,text,  complete){
+    var authToken = JSON.parse(sessionStorage["auth-token"]);
+    console.log(authToken.token);
+    var nuevoMensaje = new Object();
+    nuevoMensaje.text=text;
+    console.log(nuevoMessage);
+
+    //var uri = JSON.parse(sessionStorage["uri-rooms2"]);
+    console.log(uri);
+    var uri= BASE_URI +'/message';
+
+    $.ajax({
+    type: 'POST',
+    url: uri,
+    crossDomain : true,
+    dataType : 'json',
+    data: nuevoMessage,
+        contentType: "application/x-www-form-urlencoded", 
+        headers: {
+            "X-Auth-Token":authToken.token
+        }
+    
+    }).done(function(text) { 
+       // flat.links = linksToMap(flat.links);
+        console.log(text);
+        alert("DONE");
+        complete();
+    }).fail(function(jqXHR, textStatus, errorThrown){   
+            var error = jqXHR.responseJSON;
+                alert(error.reason);
+
+    });
+}
+
+
 }
 
 function crearAnuncio(subject, description, precio, type, uri){
