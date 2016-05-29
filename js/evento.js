@@ -4,6 +4,8 @@ $(function(){
     
     
     loadEvents();
+    $( "#start" ).datepicker();
+    $( "#end" ).datepicker();
 
     //loadAnuncios(currentStingsUri, function(stings){
     //    $("#anuncio_result").empty();
@@ -12,8 +14,8 @@ $(function(){
 
 $( "#form-evento" ).submit(function( event ) {
     event.preventDefault();
-    crearEvento($("#inputSubject").val(), $("#inputDescription").val(), $("#inputPrice").val(), $("#inputType").val(), function(){
+    crearEvento($("#inputTitol").val(), $("#inputText").val(), $("#inputLat").val(), $("#inputLong").val(), $("#start").val(), $("#end").val(), function(){
     console.log("change");
-    window.location.replace('music4you.html');
+    window.document.reload;
   });
 });

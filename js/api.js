@@ -414,6 +414,36 @@ function getEvent(uri){
         $("#event").replaceWith("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>" + '<p id="comment_result"></p>');
     });
 }
+
+function crearEvent(titol, text, latitud, longitud, startdate, enddate){
+    var authToken = JSON.parse(sessionStorage["auth-token"]);
+    
+    
+    $.ajax({
+        url: BASE_URI+"/events",
+        type: 'POST',
+        crossDomain: true,
+        //dataType: "json",
+        data: {     titol: titol,
+                    text: text,
+                    latitud: latitud,
+                    longitud:longitud,
+                    startdate:startdate,
+                    enddate: enddate
+        },
+        headers: {"X-Auth-Token":authToken.token}
+        
+        }).done(function(data, status, jqxhr){
+            
+        data.links=linksToMap(data.links);
+        //window.location.reload();
+        
+    }).fail(function(){
+        console.log('Error');
+    });
+    
+}
+
 /*       *
  * FECHA *
  *       */

@@ -21,6 +21,10 @@
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <!-- JQuery UI -->
+    <link href="css/jquery-ui.min.css" rel="stylesheet">
+    <link href="css/jquery-ui.theme.min.css" rel="stylesheet">
+    <link href="css/jquery-ui.structure.min.css" rel="stylesheet">
 
 </head>
 
@@ -126,18 +130,16 @@
             <label for="description" class="sr-only">Descripción</label>
             <input type="text" id="inputText" class="form-control" placeholder="Descripción" required>
             <label for="price" class="sr-only">Latitud</label>
-            <input type="number" id="inputLat" class="form-control" placeholder="Latitud en grados">
+            <input type="number" step="any" id="inputLat" class="form-control" placeholder="Latitud en grados">
             <label for="price" class="sr-only">Latitud</label>
-            <input type="number" id="inputLong" class="form-control" placeholder="Longitud en grados">
-            <label for="price" class="sr-only">Puntuación</label>
-            <input type="number" id="inputRatio" class="form-control" placeholder="0 a 10">
+            <input type="number" step="any" id="inputLong" class="form-control" placeholder="Longitud en grados">
             <label for="imagen" class="sr-only">Fecha</label>
             <input type="date" id="start" class="form-control" placeholder="Fecha de comienzo">
             <input type="date" id="end" class="form-control" placeholder="Fecha de final">
-      </form>
         </div>
         <div class="modal-footer">
             <button class="btn btn-success" id="crearanuncio" type="submit">Publicar evento</button>
+            </form>
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
         </div>
         </div>
@@ -413,6 +415,7 @@
 
     <!-- Plugin JavaScript -->
     <script src="js/jquery.easing.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="js/grayscale.js"></script>
