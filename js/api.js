@@ -3,6 +3,7 @@ var WEBSERVER = "./img/"
 var userglobal;
 
 
+
 $(function(){
     
     
@@ -45,6 +46,7 @@ function loadAPI(complete){
 			var api = linksToMap(data.links);
 			sessionStorage["api"] = JSON.stringify(api); // A veces falla en Firefox: SecurityError: The operation is insecure. (también con Beeter, no es fallo nuestro)
 			complete();
+
 		})
 		.fail(function(data){
 
@@ -60,6 +62,12 @@ function loadAPI(complete){
 function login(loginid, password, complete){
     console.log("function login: "+loginid+" amb password: " +password+" complete: "+complete)
 	loadAPI(function(){
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+  // Great success! All the File APIs are supported.
+  alert("ok");
+} else {
+  alert('The File APIs are not fully supported in this browser.');
+}
 		var api = JSON.parse(sessionStorage.api);
 		//var uri = api.login.uri;
                 var uri = BASE_URI+"/login";
@@ -294,7 +302,7 @@ function enviarMessage(loginid, destinatario,text,  complete){
     }).done(function(text) { 
        // flat.links = linksToMap(flat.links);
         console.log(text);
-        alert("DONE");
+        alert("Mensaje enviado correctamente" );
         complete();
     }).fail(function(jqXHR, textStatus, errorThrown){   
             var error = jqXHR.responseJSON;
@@ -306,31 +314,82 @@ function enviarMessage(loginid, destinatario,text,  complete){
 
 }
 
-function crearAnuncio(subject, description, precio, type, uri){
-    var authToken = JSON.parse(sessionStorage["auth-token"]);
-    
-    var anuncio = new Object();
+// previsualizar imagen 
+ function previewFile(){
+
+       var preview = document.querySelector('img'); //selects the query named img
+       var file    = document.querySelector('input[type=file]').files[0]; //sames as here
+       var reader  = new FileReader();
+
+       reader.onloadend = function () {
+           preview.src = reader.result;
+       }
+
+       if (file) {
+           reader.readAsDataURL(file);
+           console.log(file) ; //reads the data as a URL
+       } else {
+           preview.src = "";
+       }
+  }
+
+  previewFile();  //calls the function named previewFile()
+
+
+function progressHandlingFunction(e){
+    if(e.lengthComputable){
+        $('progress').attr({value:e.loaded,max:e.total});
+    }
+}
+
+function crearAnuncio(formdata){
+   // var authToken = JSON.parse(sessionStorage["auth-token"]);
+  //  var imgFile = document.getElementById('img');
+  //  console.log(imgFile.src);
+        var authToken = JSON.parse(sessionStorage["auth-token"]);
+        var uri= BASE_URI + "/anuncio";
+console.log(uri);
+   /* var anuncio = new Object();
     anuncio.subject = subject;
     anuncio.description = description;
     anuncio.precio = precio;
     anuncio.type = type;
-    
-    $.ajax({
-        url: uri,
-        type: 'POST',
-        crossDomain: true,
-        dataType: "json",
-        data: { content: anuncio
-        },
-        headers: {"X-Auth-Token":authToken.token}
-        
-        }).done(function(data, status, jqxhr){
-        data.links=linksToMap(data.links);
+    console.log("tipo es <<>", type)
+    anuncio.image = imgFile.src;*/
+ 
+       $.ajax({
+            url: uri,
+            type: 'POST',
+            xhr: function(){
+                var myXhr=$.ajaxSettings.xhr();
+                if(myXhr.upload){
+                    myXhr.upload.addEventListener('progress',progressHandlingFunction,false);
+                }
+                return myXhr;
+            },
+            crossDomain: true,
+            data: formdata,
+            headers: {"X-Auth-Token":authToken.token},
+            cache: false,
+            contentType: false,
+            processData: false
+        }).done(function(data, status,jqxhr){
+            var response = $.parseJSON(jqxhr.responseText);
+            var lastfilename = response.filname;
+            $('progress').toggle();
+           // window.location.replace('music4.html');
+            // data.links=linksToMap(data.links);
         window.location.reload();
-    }).fail(function(){
-        console.log('Error');
-    });
-}
+        }).fail(function(jqXHR, textStatus) {
+           var error = JSON.parse(jqXHR.responseText);
+            $("#vacios2").text("");
+            $("#vacios2").append('<div class="alert alert-block alert-info"><p><span style="color:red">'+error.reason+'</span></p></div>'); 
+                    alert("No se ha creado el anuncio");
+
+        });
+        
+
+    }
 
 function borrarAnuncio(contenido, uri){
     var authToken = JSON.parse(sessionStorage["auth-token"]);
@@ -347,6 +406,8 @@ function borrarAnuncio(contenido, uri){
         window.location.reload();
     }).fail(function(){
         console.log('Error');
+                alert("No se ha borrado el anuncio");
+
     });
 }
 
@@ -641,3 +702,11 @@ function loadPlaylist(){
     });
 }
 
+function listItemHTML(imageURL){
+var imageURL = '<img  style=width:300px;height:228px; src='+ imageURL +'>';;
+//var filename = '<img  style=width:300px;height:228px; src= http://147.83.7.207:88/img/'+ filename +'>';;
+
+  console.log("imgurl", imageURL);
+
+  return imageURL;
+}

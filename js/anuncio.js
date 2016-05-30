@@ -1,21 +1,40 @@
-$(function(){
+//$(function(){
     //var authToken = JSON.parse(sessionStorage["auth-token"]);
     //var currentAnunciosUri = authToken["links"]["current-anuncios"].uri;
     
-    loadAnuncios();
+  //  loadAnuncios();
 
     //loadAnuncios(currentStingsUri, function(stings){
     //    $("#anuncio_result").empty();
         //processStingCollection(stings);
-   });
+  // });
 
-$( "#form-anuncio" ).submit(function( event ) {
+$( "#crearanuncio" ).click(function( event ) {
   event.preventDefault();
-  crearAnuncio($('#inputSubject').val(), $('#inputDescription').val(), $('#inputPrice').val(), $('#inputType').val(), function(){
-  	console.log("change");
-  	window.location.replace('music4you.html');
+
+    var subject=$("#inputSubject").val();
+     var description=$("#inputDescription").val();
+    var precio=$("#inputPrice").val();
+    var type=$("#inputType").val();
+    var image = $('#imagen')[0].files[0];
+console.log("se supone que img es :", image)
+    event.preventDefault();
+    $('progress').toggle();
+    var formData = new FormData();
+    formData.append('subject', subject);
+    formData.append('description', description);
+    formData.append('precio', precio);
+    formData.append('type', type);
+    formData.append('image', image);    
+    console.log("form data es ::", formData);
+    crearAnuncio(formData);
+    console.log('ads creado');
+
+  //crearAnuncio($('#inputSubject').val(), $('#inputDescription').val(), $('#inputPrice').val(), $('#inputType').val(),$('#img').val(), function(){
+  //	console.log("img value",$('#img').val());
+  
   });
-});
+
 
 $( "#form-comentario2").submit(function( event ) {
     event.preventDefault();
