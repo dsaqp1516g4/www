@@ -1,19 +1,16 @@
-//$(function(){
+$(function(){
     //var authToken = JSON.parse(sessionStorage["auth-token"]);
     //var currentAnunciosUri = authToken["links"]["current-anuncios"].uri;
     
-  //  loadAnuncios();
+    loadAnuncios();
 
-    //loadAnuncios(currentStingsUri, function(stings){
-    //    $("#anuncio_result").empty();
-        //processStingCollection(stings);
-  // });
+});
 
 $( "#crearanuncio" ).click(function( event ) {
   event.preventDefault();
 
     var subject=$("#inputSubject").val();
-     var description=$("#inputDescription").val();
+    var description=$("#inputDescription").val();
     var precio=$("#inputPrice").val();
     var type=$("#inputType").val();
     var image = $('#imagen')[0].files[0];
@@ -29,10 +26,7 @@ console.log("se supone que img es :", image)
     console.log("form data es ::", formData);
     crearAnuncio(formData);
     console.log('ads creado');
-
-  //crearAnuncio($('#inputSubject').val(), $('#inputDescription').val(), $('#inputPrice').val(), $('#inputType').val(),$('#img').val(), function(){
-  //	console.log("img value",$('#img').val());
-  
+    
   });
 
 

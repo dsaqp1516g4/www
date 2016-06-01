@@ -24,7 +24,7 @@
 </head>
 
 
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" onload="loadAnunciosbyUser()">
 
     <!-- Navigation -->
     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -112,13 +112,106 @@
 
             </div>
             <div class="col-md-6">
+            <div class="text-right">
+            <button type="button" data-toggle="modal" data-target="#CrearPlay" class="btn btn-success">Subir canción</button>
+            </div>
                 <p class="intro-text">Canciones subidas:</p>
-                    <div id="playlist_result">Hola!!!!!
+                    <div id="playlist_result">
                     </div>
             </div>
+            <div class="row">
+            <div class="col-md-12">
+                <p class="intro-text">Anuncios publicados por el usuario</p>
+                <div id="anuncio_result">
+                </div>
+            </div>
+        </div>
 </section>
-    <!-- Register modal -->
 
+<!-- <section>
+    <div class="container">
+        
+    </div>
+</section> -->
+
+<!-- Modal para mostrar anuncio -->
+    
+    <div id="VerAnuncio" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+    <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 id="anuncio_subject" class="modal-title" style="color:black">No funciona :(</h2>
+        </div>
+        <div class="modal-body" style="color:black">
+            <div id="anuncio"></div>
+            <div id="comentario_result"></div>
+        </div>
+        <div class="modal-footer">
+            <form class="form-comentario" id="form-comentario2">
+            <input type="text" id="inputComment2" class="form-control" placeholder="Introduce un nuevo comentario">
+            <button class="btn btn-success" id="crearcomentario" type="submit">Publicar comentario</button>
+            </form>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Modal para mostrar canción -->
+    
+    <div id="VerPlay" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+    <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 id="anuncio_subject" class="modal-title" style="color:black">No funciona :(</h2>
+        </div>
+        <div class="modal-body" style="color:black">
+            <div id="song"></div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+        </div>
+        </div>
+    </div>
+
+<!-- Modal para subir canción -->
+    
+    <div id="CrearPlay" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+    <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title" style="color:black">Sube una canción</h2>
+        </div>
+        <div class="modal-body">
+            <form class="form-anuncio" id="form-anuncio">
+            <label for="inputTitol" class="sr-only">Título</label>
+            <input type="text" id="inputArtista" class="form-control" placeholder="Artista" required autofocus>
+            <label for="description" class="sr-only">Descripción</label>
+            <input type="text" id="inputTitulo" class="form-control" placeholder="Título" required>
+            <label for="price" class="sr-only">Enlace</label>
+            <input type="text" id="inputLink" class="form-control" placeholder="Enlace de Youtube">
+            <label for="price" class="sr-only">Fichero</label>
+            <input type="file" id="inputAudio" class="form-control" placeholder="Audio">
+      
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" id="crearplay" type="submit">Publicar canción</button>
+            </form>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+        </div>
+        </div>
+    </div>
+    
+    
 <!-- Modal para eliminar usuario -->
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -170,6 +263,7 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/grayscale.js"></script>
     <script src="js/api.js"></script>
+    <script src="js/apiexterna.js"></script>
     <!-- <script src="js/registro.js"></script> -->
     <script src="js/login.js"></script>
     <script src="js/perfil.js"></script>

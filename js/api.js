@@ -1,11 +1,11 @@
-var BASE_URI = "http://192.168.1.107:8080/music4you"
+var BASE_URI = "http://localhost:8080/music4you"
 var WEBSERVER = "./img/"
+var UPLOADFOLDER = "file:///var/www/html/uploads/"
 var userglobal;
 
 
 
 $(function(){
-    
     
 });
 
@@ -275,47 +275,11 @@ function loadAnuncios(){
         $("#anuncio_result").text("");
         $("#anuncio_result").append("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>");
     });
-
-//mensajeria
-function enviarMessage(loginid, destinatario,text,  complete){
-    var authToken = JSON.parse(sessionStorage["auth-token"]);
-    console.log(authToken.token);
-    var nuevoMensaje = new Object();
-    nuevoMensaje.text=text;
-    console.log(nuevoMessage);
-
-    //var uri = JSON.parse(sessionStorage["uri-rooms2"]);
-    console.log(uri);
-    var uri= BASE_URI +'/message';
-
-    $.ajax({
-    type: 'POST',
-    url: uri,
-    crossDomain : true,
-    dataType : 'json',
-    data: nuevoMessage,
-        contentType: "application/x-www-form-urlencoded", 
-        headers: {
-            "X-Auth-Token":authToken.token
-        }
     
-    }).done(function(text) { 
-       // flat.links = linksToMap(flat.links);
-        console.log(text);
-        alert("Mensaje enviado correctamente" );
-        complete();
-    }).fail(function(jqXHR, textStatus, errorThrown){   
-            var error = jqXHR.responseJSON;
-                alert(error.reason);
-
-    });
-}
-
-
-}
+}	
 
 // previsualizar imagen 
- function previewFile(){
+function previewFile(){
 
        var preview = document.querySelector('img'); //selects the query named img
        var file    = document.querySelector('input[type=file]').files[0]; //sames as here
@@ -331,10 +295,7 @@ function enviarMessage(loginid, destinatario,text,  complete){
        } else {
            preview.src = "";
        }
-  }
-
-  previewFile();  //calls the function named previewFile()
-
+}
 
 function progressHandlingFunction(e){
     if(e.lengthComputable){
@@ -389,24 +350,23 @@ console.log(uri);
         });
         
 
-    }
+}
 
-function borrarAnuncio(contenido, uri){
+function borrarAnuncio(id){
     var authToken = JSON.parse(sessionStorage["auth-token"]);
     $.ajax({
-        url: uri,
+        url: BASE_URI+"/anuncio/"+id,
         type: 'DELETE',
         crossDomain: true,
         dataType: "json",
-        data: { content: contenido },
         headers: {"X-Auth-Token":authToken.token}
         
     }).done(function(data, status, jqxhr){
-        data.links=linksToMap(data.links);
-        window.location.reload();
+        //data.links=linksToMap(data.links);
+        $('#' + id).hide();
     }).fail(function(){
         console.log('Error');
-                alert("No se ha borrado el anuncio");
+        alert("No se ha borrado el anuncio");
 
     });
 }
@@ -430,7 +390,7 @@ function getAnuncio(uri){
                 var tipo="registrado";
         }
         $("#anuncio").replaceWith(  '<p>'+ 
-                                  '<img align="right" src="' + WEBSERVER + anuncio1.image + '.png"><br clear="left"/></img>' 
+                                  '<img align="right" width="25%" src="' + UPLOADFOLDER + anuncio1.image + '.png"><br clear="left"/></img>' 
                                   + anuncio1.description + '</p><br>' + '<strong>Creator:</strong>' + anuncio1.creator 
                                   + '<br>' + '<strong>Precio</strong>' + anuncio1.price + ' €'
                                     + '<br>' + '<strong>Tipo de usuario</strong>' + tipo + '</p>'
@@ -443,6 +403,97 @@ function getAnuncio(uri){
         $("#anuncio").replaceWith("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>" + '<p id="comment_result"></p>');
     });
 }
+
+function loadAnunciosbyUser(){    
+    //var authToken = JSON.parse(sessionStorage["auth-token"]);
+    var uri = BASE_URI+"/anuncio";
+    $.ajax({
+        type : 'GET',
+        url : uri,
+        //headers: {"X-Auth-Token":authToken.token},
+        dataType : 'json',
+        crossDomain : true,
+    }).done(function(data, status, jqxhr){
+        
+        var anuncios = data.stings;
+        $.each(anuncios, function(i, v) {
+                                    var anuncio = v;
+                                    console.log(i);
+                                    if(userglobal.id==anuncio.userid){
+                                    $('<div class="list-group" id="' + anuncio.id +'"><a href="#" id="'+i+'anuncio" class="list-group-item" data-toggle="modal" data-target="#VerAnuncio"><h4 class="list-group-item-heading">' + anuncio.subject +'</h4></a>').appendTo($('#anuncio_result'));
+                                    $('<p class="list-group-item-text">').appendTo($('#anuncio_result'));
+                                    $('<strong>Precio: </strong>' + anuncio.precio + ' € <br>').appendTo($('#anuncio_result'));
+                                    if(anuncio.type=1){
+                                        var tipo="artista";
+                                    }
+                                    else{
+                                        var tipo="registrado";
+                                    }
+                                    $('<strong>Usuario: </strong>' + tipo + '<br>').appendTo($('#anuncio_result'));
+                                    $('<img align="right" src="' + WEBSERVER + 'user-trash.png" onclick="borrarAnuncio(\'' + anuncio.id + '\');" style="cursor:pointer,vertical-align:bottom"></img>' +  '<img align="right" src="' + WEBSERVER + 'editar.png" onClick="editAnuncio(\'' + anuncio.id +'\')" style="cursor:pointer"></img></div>').appendTo($('#anuncio_result'));
+                                    $('</p>').appendTo($('#anuncio_result'));
+                                    }
+                                    
+                                    $("#"+i+"anuncio").click(function(){
+                                    //event.preventDefault();
+                                    console.log("ID:" + anuncio.id);
+                                    getAnuncio(BASE_URI+"/anuncio/"+anuncio.id, function(){
+                                    });
+                                    });
+        });
+        //data.links=linksToMap(data.links);
+        //var response = data;
+        //var anuncioCollection = new AnuncioCollection(response);
+        //var html = anuncioCollection.toHTML();
+    }).fail(function(jqXHR, textStatus){
+        $("#anuncio_result").text("");
+        $("#anuncio_result").append("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>");
+    });
+    
+}
+
+
+/*               *
+ *               *
+ *  MENSAJERÍA   *
+ *               *
+ *               */
+
+
+function enviarMessage(loginid, destinatario,text, complete){
+    var authToken = JSON.parse(sessionStorage["auth-token"]);
+    console.log(authToken.token);
+    var nuevoMensaje = new Object();
+    nuevoMensaje.text=text;
+    console.log(nuevoMessage);
+
+    //var uri = JSON.parse(sessionStorage["uri-rooms2"]);
+    console.log(uri);
+    var uri= BASE_URI +'/message';
+
+    $.ajax({
+    type: 'POST',
+    url: uri,
+    crossDomain : true,
+    dataType : 'json',
+    data: nuevoMessage,
+        contentType: "application/x-www-form-urlencoded", 
+        headers: {
+            "X-Auth-Token":authToken.token
+        }
+    
+    }).done(function(text) { 
+       // flat.links = linksToMap(flat.links);
+        console.log(text);
+        alert("Mensaje enviado correctamente" );
+        complete();
+    }).fail(function(jqXHR, textStatus, errorThrown){   
+            var error = jqXHR.responseJSON;
+                alert(error.reason);
+
+    });
+}
+
 
 /*         *
  * EVENTOS *
@@ -559,11 +610,6 @@ var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
  function crearComment(anuncioid, eventid, content){
     var authToken = JSON.parse(sessionStorage["auth-token"]);
     
-    //var comentario = new Object();
-    //comentario.anuncioid = anuncioid;
-    //comentario.eventid = eventid;
-    //comentario.content = content;
-    
     $.ajax({
         url: BASE_URI+"/comments",
         type: 'POST',
@@ -576,10 +622,11 @@ var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
         headers: {"X-Auth-Token":authToken.token}
         
         }).done(function(data, status, jqxhr){
-            
         data.links=linksToMap(data.links);
-        //window.location.reload();
-        
+        var comentario = data;
+        var date = new Date(comentario.creationTimestamp);
+        var fecha = date.toLocaleDateString('es-ES', options);
+        $('<div style="border-style:dotted" id="' + comentario.id +'"><br>' + comentario.content + ' por ' + comentario.creator + ' el ' + fecha +'<img align="right" src="' + WEBSERVER + 'user-trash.png" onclick="borrarComment(\'' + comentario.id + '\');" style="cursor:pointer;vertical-align:bottom;"></img>' +  '<img align="right" src="' + WEBSERVER + 'editar.png" onClick="editComment(\'' + comentario.id +'\')" style="cursor:pointer;vertical-align:bottom;"></img></div>').appendTo($('#comment_result'));       
     }).fail(function(){
         console.log('Error');
     });
@@ -674,16 +721,22 @@ function loadPlaylist(){
         $.each(canciones, function(i, v) {
                                     song = v;
                                     console.log(i);
-                                    $('<div class="list-group"><a href="#" id="'+i+'song" class="list-group-item" data-toggle="modal" data-target="#VerSong"><h4 class="list-group-item-heading">' + song.artist + ' - ' + song.title + '</h4></a>').appendTo($('#playlist_result'));
-                                    $('<p class="list-group-item-text">').appendTo($('#song_result'));
-                                    $('<audio src='+ song.audio + '"><br>').appendTo($('#playlist_result'));
-                                    if (song.youtubelink!=null){
-                                        var link = song.youtubelink;
-                                        var trozos = link.split('=v?');
-                                        console.log(trozos[0], trozos[1]);
+                                    if(userglobal.id==song.userid){
+                                        if(song.youtubelink!=null){
+                                            var link = song.youtubelink;
+                                            var trozos = link.split('?v=');
+                                            console.log(trozos[0], trozos[1]);
+                                            
+                                    $('<div id="' + song.id +'" class="list-group"><a href="#" id="'+i+'song" class="list-group-item" data-toggle="modal" data-target="#VerPlay"><h4 class="list-group-item-heading">' + song.artist + ' - ' + song.title + '</h4></a>' + '<p class="list-group-item-text">' + 
+                                    '<br><audio src="'+ UPLOADFOLDER + song.audio + '" preload="auto" controls></audio><br><br>' + 
+                                    '<iframe width="480" height="270" src="https://www.youtube.com/embed/' + trozos[1] +'" frameborder="0" allowfullscreen></iframe>' + 
+                                    '<br><br><img align="right" src="' + WEBSERVER + 'user-trash.png" onclick="borrarPlay(\'' + song.id + '\');" style="cursor:pointer;vertical-align:bottom;"></img>' +  '<img align="right" src="' + WEBSERVER + 'editar.png" onClick="editPlay(\'' + song.id +'\')" style="cursor:pointer;vertical-align:bottom;"></img>' + '</p></div>').appendTo($('#playlist_result'));
+                                        }
+                                    else{
+                                        $('<div id="' + song.id +'" class="list-group"><a href="#" id="'+i+'song" class="list-group-item" data-toggle="modal" data-target="#VerSong"><h4 class="list-group-item-heading">' + song.artist + ' - ' + song.title + '</h4></a>' + '<p class="list-group-item-text">' + 
+                                    '<audio src="'+ UPLOADFOLDER + song.audio + '"></audio>' + 
+                                    '<img align="right" src="' + WEBSERVER + 'user-trash.png" onclick="borrarPlay(\'' + song.id + '\');" style="cursor:pointer;vertical-align:bottom;"></img>' +  '<img align="right" src="' + WEBSERVER + 'editar.png" onClick="editPlay(\'' + song.id +'\')" style="cursor:pointer;vertical-align:bottom;"></img>' + '</p></div>').appendTo($('#playlist_result'));
                                     }
-                                    $('<iframe width="480" height="270" src="https://www.youtube.com/embed/cedoBlUvBlI" frameborder="0" allowfullscreen></iframe>').appendTo($('#playlist_result'));
-                                    $('</p>').appendTo($('#song_result'));
                                     $("#"+i+"song").click(function(){
                                     //event.preventDefault();
                                     console.log("ID:" + song.id);
@@ -691,6 +744,7 @@ function loadPlaylist(){
                                     
                                     });
                                     });
+                                    }
         });
         //data.links=linksToMap(data.links);
         //var response = data;
@@ -702,8 +756,98 @@ function loadPlaylist(){
     });
 }
 
+function crearPlay(formdata){
+    var authToken = JSON.parse(sessionStorage["auth-token"]);
+  //  var imgFile = document.getElementById('img');
+  //  console.log(imgFile.src);
+    var uri= BASE_URI + "/songs";
+ 
+       $.ajax({
+            url: uri,
+            type: 'POST',
+            xhr: function(){
+                var myXhr=$.ajaxSettings.xhr();
+                if(myXhr.upload){
+                    myXhr.upload.addEventListener('progress',progressHandlingFunction,false);
+                }
+                return myXhr;
+            },
+            crossDomain: true,
+            data: formdata,
+            headers: {"X-Auth-Token":authToken.token},
+            cache: false,
+            contentType: false,
+            processData: false
+        }).done(function(data, status,jqxhr){
+            var response = $.parseJSON(jqxhr.responseText);
+            var lastfilename = response.filname;
+            $('progress').toggle();
+           // window.location.replace('music4.html');
+            // data.links=linksToMap(data.links);
+            window.location.reload();
+        }).fail(function(jqXHR, textStatus) {
+           var error = JSON.parse(jqXHR.responseText);
+            $("#vacios2").text("");
+            $("#vacios2").append('<div class="alert alert-block alert-info"><p><span style="color:red">'+error.reason+'</span></p></div>'); 
+                    alert("No se ha creado el anuncio");
+
+        });
+        
+
+}
+
+function borrarPlay(id){
+    var authToken = JSON.parse(sessionStorage["auth-token"]);
+    var uri=BASE_URI+"/songs/"+id;
+    $.ajax({
+        url: uri,
+        type: 'DELETE',
+        crossDomain: true,
+        dataType: "json",
+        //data: { content: contenido },
+        headers: {"X-Auth-Token":authToken.token}
+        
+    }).done(function(data, status, jqxhr){
+        //data.links=linksToMap(data.links);
+        $('#' + id).hide();
+    }).fail(function(){
+        console.log('Error');
+        window.alert('Falló el borrado de la canción');
+    });
+}
+
+function editPlay(id){
+    window.alert("¡Implementa la edición Hixam!");
+}
+
+function getSong(uri){
+    var authToken = JSON.parse(sessionStorage["auth-token"]);
+    $.ajax({
+        url: uri,
+        type: 'GET',
+        crossDomain: true,
+        dataType: "json",
+        headers: {"X-Auth-Token" : authToken.token}
+    }).done(function(data, status, jqxhr){
+        var song1 = data;
+        $( "#anuncio_subject" ).replaceWith('<h2 id="anuncio_subject" class="modal-title" style="color:black">'+ song1.artist + ' - ' + song1.title +'</h2>');
+        $("#song").replaceWith('<strong>Artista:</strong>' + song1.artist 
+                                  + '<br>' + '<strong>Título</strong>' + song1.title + ' €'
+                                 + '<p id="api_externa"></p>');
+        loadDatosCancion(song1.artist, song1.title);
+        //data.links=linksToMap(data.links);
+    }).fail(function(){
+        console.log("ERROR");
+        $("#song").text("");
+        $("#song").replaceWith("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>" + '<p id="api_externa"></p>');
+    });
+}
+
+var DISCOGS="https://api.discogs.com"
+
+
 function listItemHTML(imageURL){
-var imageURL = '<img  style=width:300px;height:228px; src='+ imageURL +'>';;
+var imageURL = '<img  style="width:300px;height:228px" src="'+ imageURL +'">';
 //var filename = '<img  style=width:300px;height:228px; src= http://147.83.7.207:88/img/'+ filename +'>';;
 
   console.log("imgurl", imageURL);

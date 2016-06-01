@@ -70,7 +70,7 @@
     
 
     
-    <div id="CrearAnuncio" class="modal fade" role="dialog">
+    <div id="CrearAnuncio" class="modal fade" role="dialog" onload="previewFile()">
         <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -96,12 +96,12 @@
            <label for="email" class="sr-only">Tipo</label>
             <select>
                                 <option  id="inputType" value="0" selected>Seleccionar</option>
-                                            <option style="background-color:#ffffff;" value="1">Artista</option>
-                                            <option style="background-color:#ffffff;" value="0">Melómano</option>
+                                <option style="background-color:#ffffff;" value="1">Artista</option>
+                                <option style="background-color:#ffffff;" value="0">Melómano</option>
             </select>
             <label for="imagen" class="sr-only">Imagen del anuncio</label>
             <input type="file" id="imagen" class="form-control" placeholder="Seleccion" onchange="previewFile()"><br>
-            <img src="" height="200" id="img" alt="Image preview...">
+            <img src="" width="100%" id="img" alt="Image preview...">
       </form>
        <progress style="display: none;"></progress>
                                      <div id = "vacios2">
@@ -214,46 +214,7 @@
         
         
         
-        
-        
-        
-    
-    <!-- Modal para subir canción -->
-    
-    <div id="CrearPlay" class="modal fade" role="dialog">
-        <div class="modal-dialog">
 
-    <!-- Modal content-->
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h2 class="modal-title" style="color:black">Crea un evento</h2>
-        </div>
-        <div class="modal-body">
-            <form class="form-anuncio" id="form-anuncio">
-            <label for="inputTitol" class="sr-only">Título</label>
-            <input type="text" id="inputArtist" class="form-control" placeholder="Artista" required autofocus>
-            <label for="description" class="sr-only">Descripción</label>
-            <input type="text" id="inputTitle" class="form-control" placeholder="Título" required>
-            <label for="price" class="sr-only">Latitud</label>
-            <input type="text" id="inputLink" class="form-control" placeholder="Enlace de Youtube">
-            <label for="price" class="sr-only">Latitud</label>
-            <input type="file" id="inputAudio" class="form-control" placeholder="Audio">
-            <label for="price" class="sr-only">Puntuación</label>
-            <input type="number" id="inputGenre" class="form-control" placeholder="Género">
-            <label for="imagen" class="sr-only">Fecha</label>
-            <input type="number" id="inputYear" class="form-control" placeholder="Año">
-            <input type="date" id="end" class="form-control" placeholder="Fecha de final">
-      </form>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-success" id="crearsong" type="submit">Publicar canción</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        </div>
-        </div>
-        </div>
-    </div>
-    
     
     <!-- Intro Header -->
     <!-- <header class="intro">
@@ -284,8 +245,8 @@
                 <div class="row">
                 <div class="col-sm-2">
                     <h2>Menú</h2>
-                    <button href="#" data-toggle="modal" data-target="#CrearAnuncio">Crear anuncio</button><br><br>
-                    <button  href="#" data-toggle="modal" data-target="#CrearEvento">Crear evento</button><br>
+                    <button href="#" data-toggle="modal" data-target="#CrearAnuncio" class="btn btn-success">Crear anuncio</button><br><br>
+                    <button  href="#" data-toggle="modal" data-target="#CrearEvento" class="btn btn-success">Crear evento</button><br>
 
                     <b>Filtros</b>
 

@@ -1,4 +1,4 @@
-var DISCOGS="https://api.discogs.com"
+var DISCOGS = "https://api.discogs.com/"
 
 // https://www.discogs.com/developers/#page:database,header:database-search
 
@@ -114,23 +114,36 @@ var DISCOGS="https://api.discogs.com"
 
 */
 
-
-function loadDatosCancion(){
-    $('#playlist_result').text(''); 
+function loadDatosCancion(artista, titulo){
+    $('#api_externa').replaceWith('<div id="api_externa"></div>'); 
     
     var authToken = JSON.parse(sessionStorage["auth-token"]);
-    var uri = DISCOGS+"/database/search?q=&" + "type=release&title=" + song.artist " - " + song.title;
-    $.ajax({
+    var uri = DISCOGS + '/database/search?q=&' + 'type=release&title=' + artista + ' - ' + titulo;
+    
+    var API = "https://api.discogs.com/database/search"
+    dataString = 'q=&' + 'type=release&title=' + artista + ' - ' + titulo;
+
+    $.getJSON(API, dataString, function(json){
+        //$("#more").after(html);
+        alert("Success!");
+        alert(JSON.stringify(json));
+    });
+    
+    
+    /*$.ajax({
         type : 'GET',
         url : uri,
-        //headers: {"X-Auth-Token":authToken.token},
-        dataType : 'json',
+        headers: {"User-Agent":'Music4you/0.1'},
+        //dataType : 'json',
         crossDomain : true,
     }).done(function(data, status, jqxhr){
+        var cancion = data.results;
         
+        $('<div><strong>Género:</strong>'+ cancion[0].genre).appendTo($('#api_externa'));
         
         }).fail(function(jqXHR, textStatus){
-        $("#playlist_result").text("");
-        $("#playlist_result").append("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>");
+        $("#api_externa").text("");
+        $("#api_externa").append("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>");
     });
+    */
 }
