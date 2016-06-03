@@ -338,6 +338,8 @@ console.log(uri);
             var response = $.parseJSON(jqxhr.responseText);
             var lastfilename = response.filname;
             $('progress').toggle();
+                                alert("Anuncio creado correctamente");
+
            // window.location.replace('music4.html');
             // data.links=linksToMap(data.links);
         window.location.reload();
