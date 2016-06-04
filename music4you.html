@@ -82,25 +82,33 @@
         <div class="modal-body">
 
             <form class="form-anuncio" id="form-anuncio">
-          <label for="subject" class="sr-only">Asunto</label>
+          <span class="label label-success">Asunto :</span>
+          <br><br>
             <input type="text" id="inputSubject" class="form-control" placeholder="Asunto" required autofocus>
+<br><br>
 
+          <span class="label label-success">Descripcion :</span>
+                    <br><br>
 
-          <label for="description" class="sr-only">Descripción</label>
-            <input type="text" id="inputDescription" class="form-control" placeholder="Descripción" required>
+            <textarea rows="5" type="text" id="inputDescription" class="form-control" placeholder="Descripción" required></textarea>
 
-  
-          <label for="price" class="sr-only">Precio</label>
+  <br><br>
+<span class="label label-success">Precio :</span>
+          <br><br>
+
             <input type="number" id="inputPrice" class="form-control" placeholder="€" required>
+<br><br>
+           <span class="label label-success">Tipo :</span>
+            <select style="background-color:#53E1EE;">
+                                <option style="background-color:#539A35;" id="inputType" value="0" class="green"  selected>Seleccionar</option>
+                                <option style="background-color:#539A35;" value="1">Artista</option>
+                                <option style="background-color:#539A35;" value="0">Melómano</option>
+            </select><br><br>
 
-           <label for="email" class="sr-only">Tipo</label>
-            <select>
-                                <option  id="inputType" value="0" selected>Seleccionar</option>
-                                <option style="background-color:#ffffff;" value="1">Artista</option>
-                                <option style="background-color:#ffffff;" value="0">Melómano</option>
-            </select>
-            <label for="imagen" class="sr-only">Imagen del anuncio</label>
+            <span class="label label-success">Imagen del anuncio :</span>
             <input type="file" id="imagen" class="form-control" placeholder="Seleccion" onchange="previewFile()"><br>
+                        <span class="label label-info">Previsualizacion imagen :</span>
+<br><br>
             <img src="" width="100%" id="img" alt="Image preview...">
       </form>
        <progress style="display: none;"></progress>
@@ -209,7 +217,8 @@
     </div>
     
     
-    
+      
+
     <!-- Modal para mostrar detalles de una canción -->
         
         
@@ -309,8 +318,8 @@
                             <div class="form-select">
                                 <select name="parent_category" id="parent_category">
                                     <option value="0" selected>Seleccionar</option>
-                                    <option style="background-color:#dcdcc3;" value="1">Artista</option>
-                                    <option style="background-color:#dcdcc3;" value="2">Melómano</option>	
+                                    <option style="background-color:#539A35;" value="1">Artista</option>
+                                    <option style="background-color:#539A35;" value="2">Melómano</option>	
                             </select>
                         </div>
                     </dd>

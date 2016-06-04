@@ -269,9 +269,31 @@ function buscador(e){
 
                                     var anuncio = v;
                                     console.log(anuncio);
-                                    
+                                    anuncio.userid
 
                                    if ( dInput == 1 &&  anuncio.subject == buscar )
+                                   {
+                                    $('<div class="list-group"><a href="#" id="'+i+'anuncio" class="list-group-item" data-toggle="modal" data-target="#VerAnuncio"><h4 class="list-group-item-heading">' + anuncio.subject +'</h4></a>').appendTo($('#anuncio_result'));
+                                    $('<p class="list-group-item-text">').appendTo($('#anuncio_result'));
+                                    $('<strong>Precio: </strong>' + anuncio.precio + ' € <br>').appendTo($('#anuncio_result'));
+                                    if(anuncio.type=1){
+                                        var tipo="artista";
+                                    }
+                                    else{
+                                        var tipo="registrado";
+                                    }
+                                    $('<strong>Usuario: </strong>' + tipo + '<br>').appendTo($('#anuncio_result'));
+                                    $('</p>').appendTo($('#anuncio_result'));
+                                    $("#"+i+"anuncio").click(function(){
+                                    //event.preventDefault();
+                                    console.log("ID:" + anuncio.id);
+                                    getAnuncio(BASE_URI+"/anuncio/"+anuncio.id, function(){
+    
+                                    });
+                                    });
+                                    }
+
+                                    if ( dInput == 2 &&  anuncio.creator == buscar )
                                    {
                                     $('<div class="list-group"><a href="#" id="'+i+'anuncio" class="list-group-item" data-toggle="modal" data-target="#VerAnuncio"><h4 class="list-group-item-heading">' + anuncio.subject +'</h4></a>').appendTo($('#anuncio_result'));
                                     $('<p class="list-group-item-text">').appendTo($('#anuncio_result'));
@@ -443,6 +465,9 @@ console.log(uri);
             contentType: false,
             processData: false
         }).done(function(data, status,jqxhr){
+                    sessionStorage["idAds"] = JSON.stringify(data.id);
+console.log("id es :", sessionStorage["idAds"]);
+   
             var response = $.parseJSON(jqxhr.responseText);
             var lastfilename = response.filname;
             $('progress').toggle();
@@ -562,6 +587,11 @@ function loadAnunciosbyUser(){
     
 }
 
+//// editar Anuncio
+
+function editAnuncio(id){
+    window.alert("¡Implementa la edición Hixam!");
+}
 
 /*               *
  *               *
