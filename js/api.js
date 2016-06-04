@@ -223,16 +223,27 @@ function getSting(uri, complete){
 		});
 }
 
+//filtros
+
+function filtro(e, opcion){
+    dInput = opcion;
+    console.log("opcion is ::::", dInput);
+ 
+}
+
+
 
 /*buscador*/
 function buscador(e){
+
     var res = document.getElementById('buscar').value;
      if (e.keyCode === 13 && res == "")
         alert("para buscar escribe algo");
     if(e.keyCode === 13 && res != ""){
-            alert("Enter was pressed was presses");
+
+            console.log("buscador opcion is ::::", dInput);
             var buscar = document.getElementById('buscar').value;
-            console.log("res is :", buscar);
+            console.log("res is :", buscar); 
             $('#anuncio_result').text(''); 
 
 //   console.log(a);
@@ -253,13 +264,36 @@ function buscador(e){
 
         // res = $'#anuncio_result'.val();
        // if (anuncios.userid == $('#anuncio_result').text() ) 
-                //console.log("res :", res);
+       //console.log("res :", res);
         $.each(anuncios, function(i, v) {
+
                                     var anuncio = v;
-
                                     console.log(anuncio);
+                                    
 
-                                   if (anuncio.subject == buscar )
+                                   if ( dInput == 1 &&  anuncio.subject == buscar )
+                                   {
+                                    $('<div class="list-group"><a href="#" id="'+i+'anuncio" class="list-group-item" data-toggle="modal" data-target="#VerAnuncio"><h4 class="list-group-item-heading">' + anuncio.subject +'</h4></a>').appendTo($('#anuncio_result'));
+                                    $('<p class="list-group-item-text">').appendTo($('#anuncio_result'));
+                                    $('<strong>Precio: </strong>' + anuncio.precio + ' € <br>').appendTo($('#anuncio_result'));
+                                    if(anuncio.type=1){
+                                        var tipo="artista";
+                                    }
+                                    else{
+                                        var tipo="registrado";
+                                    }
+                                    $('<strong>Usuario: </strong>' + tipo + '<br>').appendTo($('#anuncio_result'));
+                                    $('</p>').appendTo($('#anuncio_result'));
+                                    $("#"+i+"anuncio").click(function(){
+                                    //event.preventDefault();
+                                    console.log("ID:" + anuncio.id);
+                                    getAnuncio(BASE_URI+"/anuncio/"+anuncio.id, function(){
+    
+                                    });
+                                    });
+                                    }
+
+                                     if ( dInput == 3 &&  anuncio.precio == buscar )
                                    {
                                     $('<div class="list-group"><a href="#" id="'+i+'anuncio" class="list-group-item" data-toggle="modal" data-target="#VerAnuncio"><h4 class="list-group-item-heading">' + anuncio.subject +'</h4></a>').appendTo($('#anuncio_result'));
                                     $('<p class="list-group-item-text">').appendTo($('#anuncio_result'));

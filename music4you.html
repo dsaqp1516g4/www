@@ -241,8 +241,23 @@
                    <div class="intro-text">Busca a tu gusto</div>
                    <form action="#" >
                         <input type="text" onkeypress="buscador(event)" id="buscar" class="form-control" placeholder="Busca por género, ciudad, o grupo en concreto"/>
+                                          <div class="container">
+  <h5>Opciones de busqueda :</h5>
+  <form role="form">
+    <label class="radio-inline">
+      <input type="radio" id="titulo" onclick="filtro(event,1)" name="optradio">Por titulo
+    </label>
+    <label class="radio-inline">
+      <input type="radio" id="usuario" onclick="filtro(event,2)" name="optradio">Por usuario
+    </label>
+    <label class="radio-inline">
+      <input type="radio" id="precio" onclick="filtro(event,3)" name="optradio">precio
+    </label>
+  </form>
+</div>
                         </form>
                     <br>
+  
                    </div>
                 </div>
                 <div class="row">
