@@ -1,8 +1,8 @@
-var BASE_URI = "http://localhost:8080/music4you"
+﻿var BASE_URI = "http://192.168.1.107:8080/music4you"
 var WEBSERVER = "./img/"
-var UPLOADFOLDER = "file:///var/www/html/uploads/"
+var UPLOADFOLDER = "file:///home/hixam/Escritorio/music4you/"
 var userglobal;
-
+var dInput;
 
 
 $(function(){
@@ -224,6 +224,80 @@ function getSting(uri, complete){
 }
 
 
+/*buscador*/
+function buscador(e){
+    var res = document.getElementById('buscar').value;
+     if (e.keyCode === 13 && res == "")
+        alert("para buscar escribe algo");
+    if(e.keyCode === 13 && res != ""){
+            alert("Enter was pressed was presses");
+            var buscar = document.getElementById('buscar').value;
+            console.log("res is :", buscar);
+            $('#anuncio_result').text(''); 
+
+//   console.log(a);
+    //var authToken = JSON.parse(sessionStorage["auth-token"]);
+    var uri = BASE_URI+"/anuncio";
+    $.ajax({
+        type : 'GET',
+        url : uri,
+        //headers: {"X-Auth-Token":authToken.token},
+        dataType : 'json',
+        crossDomain : true,
+    }).done(function(data, status, jqxhr){
+        
+        var anuncios = data.stings;
+       // var a = e.keyCode;
+           
+
+
+        // res = $'#anuncio_result'.val();
+       // if (anuncios.userid == $('#anuncio_result').text() ) 
+                //console.log("res :", res);
+        $.each(anuncios, function(i, v) {
+                                    var anuncio = v;
+
+                                    console.log(anuncio);
+
+                                   if (anuncio.subject == buscar )
+                                   {
+                                    $('<div class="list-group"><a href="#" id="'+i+'anuncio" class="list-group-item" data-toggle="modal" data-target="#VerAnuncio"><h4 class="list-group-item-heading">' + anuncio.subject +'</h4></a>').appendTo($('#anuncio_result'));
+                                    $('<p class="list-group-item-text">').appendTo($('#anuncio_result'));
+                                    $('<strong>Precio: </strong>' + anuncio.precio + ' € <br>').appendTo($('#anuncio_result'));
+                                    if(anuncio.type=1){
+                                        var tipo="artista";
+                                    }
+                                    else{
+                                        var tipo="registrado";
+                                    }
+                                    $('<strong>Usuario: </strong>' + tipo + '<br>').appendTo($('#anuncio_result'));
+                                    $('</p>').appendTo($('#anuncio_result'));
+                                    $("#"+i+"anuncio").click(function(){
+                                    //event.preventDefault();
+                                    console.log("ID:" + anuncio.id);
+                                    getAnuncio(BASE_URI+"/anuncio/"+anuncio.id, function(){
+    
+                                    });
+                                    });
+                                    }
+        });
+        //data.links=linksToMap(data.links);
+        //var response = data;
+        //var anuncioCollection = new AnuncioCollection(response);
+        //var html = anuncioCollection.toHTML();
+    }).fail(function(jqXHR, textStatus){
+        $("#anuncio_result").text("");
+        $("#anuncio_result").append("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>");
+    });
+    
+}   
+
+        
+
+        return false;
+    }
+   // console.log(e.keyCode);
+    
 /*          *
  * ANUNCIOS *
  *          */

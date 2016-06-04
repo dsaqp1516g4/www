@@ -239,7 +239,10 @@
                    <!--- Barra buscador Buscador-->
                    <div class="col-sm-9 col-sm-offset-2">
                    <div class="intro-text">Busca a tu gusto</div>
-                    <input type="text" class="form-control" id="buscador" placeholder="Busca por género, ciudad, o grupo en concreto"><br>
+                   <form action="#" >
+                        <input type="text" onkeypress="buscador(event)" id="buscar" class="form-control" placeholder="Busca por género, ciudad, o grupo en concreto"/>
+                        </form>
+                    <br>
                    </div>
                 </div>
                 <div class="row">
@@ -396,6 +399,7 @@
     <script src="js/evento.js"></script>
     <script src="js/user.js"></script>
     <script src="js/login.js"></script>
+        <script src="js/buscador.js"></script>
     <script src="js/perfil.js"></script> -->
 
 </body>
