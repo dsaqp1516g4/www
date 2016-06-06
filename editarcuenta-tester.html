@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+  <link href='imagenes/favicon.ico' rel='shortcut icon' type='image/png'> 
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<meta name="description" content="Apartment Share  page">
+		<meta name="author" content="DSA">
+
+		<title>Apartment Share</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link href="css/navbar-fixed-top.css" rel="stylesheet">
+		<link href="css/apartmentshare.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<!-- Fixed navbar -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand">Actualizar mi cuenta </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+        
+            <ul class="nav navbar-nav navbar-left">
+                <li><a id="Quiensomos" href="quiensomoslogueado.html">Acerca de nosotros</a></li>
+                <li><a id="indexusuario" href="indexusuario.html">Volver al índice</a></li>
+            </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a id="aProfile" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a id="aGoToProfile" href="micuenta.html">Mi Cuenta</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a id="aMisPisos" href="apartmentshare.html">Mis Pisos</a></li>
+                <li role="separator" class="divider"></li>
+                  <li><a id="aMessages" href="mensajes.html">Mensajes</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a id="aCloseSession">Cerrar Sesión</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+    <center>
+      <a title="ApartmentShare"><img src="imagenes/apartmentshare.png" alt="ApartmentShare" /></a>
+    </center>
+
+    <div class="container">
+    <div class="jumbotron text-center ">  
+    	<div id="stings">
+    		<div class="row">
+     
+    		</div>
+	    	<div class="row row-margin">
+	    		<div class="col-sm-8 col-center-block">
+	    			<div id="stings-list" class="list-group">
+	    				<a class="list-group-item">
+	    					<p class="list-group-item-text">Si ves esto es que no funciono</p>
+	    					<h6 class="list-group-item-heading" align="right">Cabecera</h6>	
+						 <h6 Descripcion: <input type="text" id="descripcion"></h6>
+	    				</a>
+	    			</div>
+	    		</div>
+	    	</div>
+
+
+	      <div class="container">
+      	<form class="form-signin" id="editar">
+        	<label for="loginid" class="sr-only">Username</label>
+            <input type="text" id="loginid" class="form-control" placeholder="Nombre de Usuario" required autofocus>
+
+         	<label for="fullname" class="sr-only">fullname</label>
+            <input type="text" id="fullname" class="form-control" placeholder="Nombre completo (Nombre y apellidos)" required>
+
+	         <label for="email" class="sr-only">email</label>
+            <input type="text" id="email" class="form-control" placeholder="Correo electrónico" required>
+
+   	 		<br>
+            <button class="btn btn-success" id='registrar' type="submit">Editar Cuenta</button>
+            
+            <a class="btn btn-danger" href="micuenta.html" type="submit">Atrás</a>
+      </form>
+     </div>
+		    <div id="result"></div>
+    
+
+  </div>
+  </div>
+  </div>
+
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="js/api.js"></script>
+	<script src="js/editarcuenta.js"></script>
+	</body>
+</html>
