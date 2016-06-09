@@ -1,35 +1,29 @@
+var usere
 $(function(){
    getCurrentUserProfile(function(user){
 	$("#stings-list").empty();
       $("#stings-list").append(listItemHTML(user.loginid, user.fullname, user.email));
       $("#aProfile").text(user.fullname + ' ');
       $("#aProfile").append('<span class="caret"></span>');
-	   
+	   usere = user.id;
    });
 
 });
 
 
-   $("#formPrevious").submit(function(e){
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      window.location.replace('index.html');
-    });
-     // previousStings();
- 
+  
 
-   $("#formEliminarusuario").submit(function(e){
-      e.preventDefault();
-      e.stopImmediatePropagation();
-  EliminarUsuario(function(){
 
+
+ $("#deleteee").click(function(e){
+
+	e.preventDefault();
+      e.stopImmediatePropagation();
+      console.log(usere);
+      alert("Usuario borrado correctamente");
+  EliminarUsuario( function(){
+    window.location.replace('index.html');
   });
-
- logout(function(){
- });
- $("#deleteprofilefinal").blur();
-	window.location.reload();
-	window.location.replace('index.html');	
 
     });
 
@@ -56,7 +50,7 @@ $('#canceldeleteprofile').click(function(e){
   e.preventDefault();
 
 $("#result").text(' ');
- window.location.replace("miperfil.html"); 
+ window.location.replace("perfil.html"); 
 });
 /*
 $('#deleteprofilefinal').click(function(e){
@@ -71,8 +65,9 @@ $('#deleteprofilefinal').click(function(e){
 
 */
 
-function deleteUser(usernametodelete) {
-var url = API_BASE_URL + 'users/' + username;
+function deleteUser(user) {
+var authToken = JSON.parse(sessionStorage["auth-token"]);
+    var url = authToken["links"]["user-profile"].uri;
 
 console.log(url);
   

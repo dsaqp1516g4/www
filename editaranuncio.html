@@ -62,58 +62,49 @@
         <div class="intro-body">
             <div class="container">
                 <div class="container">
-   <div class="container">
-    <div class="jumbotron text-center col-sm-12 col-sm-offset-1 col-md-10 col-md-offset-1">
-
+    <div class="jumbotron text-center ">  
         <div id="stings">
             <div class="row">
-            <!--/.<button id="buttonUpdate" type="button" class="btn btn-default center-block">Update</button> -->
-            
+     
             </div>
             <div class="row row-margin">
-
-                <div class="col-sm-8 col-sm-offset-2 col-center-block">
+                <div class="col-sm-8 col-sm-offset-2  col-center-block">
                     <div id="stings-list" class="list-group">
                         <a class="list-group-item">
-                            <p class="list-group-item-text">Si ves esto no se han cargado los mensajes</p>
+                            <p class="list-group-item-text">Si ves esto es que no funciono</p>
                             <h6 class="list-group-item-heading" align="right">Cabecera</h6> 
+                         <h6 Descripcion: <input type="text" id="descripcion"></h6>
                         </a>
                     </div>
                 </div>
+            </div>
 
-        <br><br><br>
 
-        </div>
-        
-          <div class="form-group lead">
-                               <span class="label label-default lead">Remitente:</span> <span for="text" class=" label label-success lead" id="loginid"> </span> <br><br>
+          <div class="container">
+        <form class="form-signin lead" id="editar">
+            <label  class="label label-success ">Titulo</label><br><br>
+            <input type="text" id="titulo" class="form-control" placeholder="nuevo titulo" required autofocus>
+<br><br>
+            <label  class="label label-success">Descripcion</label><br><br>
+            <input type="text" id="descipcion" class="form-control" placeholder="nueva descripcion" required>
+<br><br>
+             <label  class="label label-success">Precio</label><br><br>
+            <input type="text" id="precio" class="form-control" placeholder="nuevo precio" required>
+<br><br>
+            <label  class="label label-success">Tipo</label><br><br>
+            <input type="text" id="tipo" class="form-control" placeholder="Tipo" required>
 
-                      
-                       <span class="label label-default lead">Destinatario:</span>  <input for="text" class="bg-primary lead" id="destinatario" text = "no se cargo el login"> </input> <br><br>
-
-        <label class="label label-success lead" for="text">Mensaje :</label>
-        <br><br>
-             <textarea name="text" class="form-control" id="text" rows="8"></textarea>
-            </div>   
-        <br>
-                  
-        <form id="formEnviarmensaje">
-        <button id="listmsg" class="btn btn-default" type="submit">listar mensajes</button>
-          <button id="buttonEnviarmensaje" type="submit" class="btn btn-default center-block">Enviar mensaje</button>
-        </form>
+            <br>
+            <button class="btn btn-success" id='editAds' type="submit">Editar anuncio</button>
+            
+            <a class="btn btn-danger" href="perfil.html" type="submit">Atrás</a>
+      </form>
+     </div>
+            <div id="result"></div>
     
-<br>
-        
-        
-        <br>
-     <br>
-    </div>
-        <div class="row">
-                    <a class="btn btn-danger" href="perfil.html" type="submit">Atrás</a>
 
-        </div>
-        </div>
-    </div>
+  </div>
+  </div>
   </div>
             </div>
         </div>
@@ -146,7 +137,7 @@
     <script src="js/grayscale.js"></script>
     <script src="js/api.js"></script>
 
-    <script src="js/messages.js"></script>
+    <script src="js/anuncio.js"></script>
     <script src="js/weblinking.js"></script>
 
 </body>

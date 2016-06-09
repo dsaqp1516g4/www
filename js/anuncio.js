@@ -28,6 +28,46 @@ console.log("se supone que img es :", image)
     console.log('ads creado');
     
   });
+/*$( "#editt" ).click(function( event ) {
+  event.preventDefault();
+        window.location.replace('editaranuncio.html');
+
+ });*/
+
+$( "#editAds" ).click(function( event ) {
+  event.preventDefault();
+var id = localStorage.getItem('ide');
+    console.log("id ads", id);
+    var subject=$("#titulo").val();
+    var description=$("#descipcion").val();
+    var precio=$("#precio").val();
+    var type=$("#tipo").val();
+     console.log("subject es :",subject);
+    event.preventDefault();
+   /* var formData = new FormData();
+    formData.append('id', id);
+    formData.append('subject', subject);
+    formData.append('description', description);
+    formData.append('precio', precio);
+    formData.append('type', type);*/
+   
+   // alert(FormData);
+    putAds(id, subject,description,precio,type);
+    console.log("ads editado (from anuncio.js)");
+
+/*$( "#editAds" ).click(function( event ) {
+  event.preventDefault();
+
+    var subject=$("#titulo").val();
+    var description=$("#descipcion").val();
+    var precio=$("#precio").val();
+    var type=$("#tipo").val();
+     
+  
+    crearAnuncio(subject, description, precio, type);
+    console.log('ads editado');
+    */
+  });
 
 
 $( "#form-comentario2").submit(function( event ) {

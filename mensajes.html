@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <link href='imagenes/favicon.ico' rel='shortcut icon' type='image/png'> 
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Apartment Share  page">
+    <meta name="author" content="DSA">
+
+    <title>Apartment Share</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="css/navbar-fixed-top.css" rel="stylesheet">
+    <link href="css/apartmentshare.css" rel="stylesheet">
+
+    <STYLE TYPE="text/css">
+    body{
+      background: url(5.gif) no-repeat center;
+      }
+	  	  #secondmap {
+		width: 500px;
+		height: 400px;
+		background-color: #CCC;
+	  }
+		  #map_wrapper {
+		height: 400px;
+		}
+
+		#map_canvas {
+			width: 100%;
+			height: 100%;
+		}
+
+		#travel_selector {
+			margin-top: 10px;
+			margin-left: 10px;
+		}
+    </STYLE>
+	<meta name="viewport" content="width=device-width">
+	<link href='http://fonts.googleapis.com/css?family=Doppio+One' rel='stylesheet' type='text/css'>
+	  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=set_to_true_or_false"></script> 
+  </head>
+
+  <body>
+
+
+       <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand"></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+        
+            <ul class="nav navbar-nav navbar-left">
+                <li><a id="Quiensomos" href="quiensomoslogueado.html">Acerca de nosotros</a></li>
+                <li><a id="indexusuario" href="indexusuario.html">Volver al índice</a></li>
+            </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a id="aProfile" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a id="aGoToProfile" href="micuenta.html">Mi Cuenta</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a id="aMisPisos" href="apartmentshare.html">Mis Pisos</a></li>
+                <li role="separator" class="divider"></li>
+                  <li><a id="aMessages" href="mensajes.html">Mensajes</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a id="aCloseSession">Cerrar Sesión</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+    <div class="container">
+    <div class="jumbotron text-center col-sm-12 col-sm-offset-1 col-md-10 col-md-offset-1">
+
+    	<div id="stings">
+    		<div class="row">
+    		<!--/.<button id="buttonUpdate" type="button" class="btn btn-default center-block">Update</button> -->
+		    
+    		</div>
+	    	<div class="row row-margin">
+
+	    		<div class="col-sm-8 col-center-block">
+	    			<div id="stings-list" class="list-group">
+	    				<a class="list-group-item">
+	    					<p class="list-group-item-text">Si ves esto no se han cargado los mensajes</p>
+	    					<h6 class="list-group-item-heading" align="right">Cabecera</h6>	
+	    				</a>
+	    			</div>
+	    		</div>
+
+        <br><br><br>
+
+	    </div>
+		
+	      <div class="form-group">
+                               <label for="text" >Remitente:</label>  <label for="text" id="loginid" > </label> <br><br>
+
+                      
+                       <label for="text" >Destinatario:</label>  <input for="text" id="destinatario" text = "no se cargo el login"> </input> <br><br>
+
+        <label for="text">Mensaje</label>
+       		 <textarea name="text" class="form-control" id="text" rows="8"></textarea>
+    		</div>   
+    	<br>
+		          
+        <form id="formEnviarmensaje">
+          <button id="buttonEnviarmensaje" type="submit" class="btn btn-default center-block">Enviar mensaje</button>
+        </form>
+    
+<br>
+		
+		
+        <br>
+	 <br>
+  	</div>
+        <div class="row">
+        <button id="buttonRegresar" type="button" class="btn btn-danger center-block">Atrás</button>
+        </div>
+    	</div>
+    </div> <!-- /container -->
+    </div>
+
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	  <!-- Google maps Javascript plugins -->
+	  <script src="https://maps.googleapis.com/maps/api/js"></script>	
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+	  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+	 <script src="http://jashkenas.github.com/coffee-script/extras/coffee-script.js"></script>
+    <script src="js/api.js"></script>
+	<script src="js/messages.js"></script>
+	</body>
+</html>
