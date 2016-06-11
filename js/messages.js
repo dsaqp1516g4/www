@@ -14,13 +14,32 @@ $(function(){
    });
 });
 
+ $("listmsg").submit(function(e){
+    e.preventDefault();
+
+   // var uri = $(this).attr("href");
+  
+  
+
+ 
+    getMessage(function(){
+
+      // In this example we only log the sting
+  
+  //  var msg;
+ // sessionStorage["message"] = JSON.stringify(msg);
+ // console.log("msg 1 es :",msg);
+ // var msg = JSON.parse(sessionStorage["message"]);
+  //console.log("msg dos es :",msg);
+   // window.location.replace('conversation.html');
+    });
+  });
 
 
 $( "#buttonEnviarmensaje" ).click(function( event ) {
   event.preventDefault();
   enviarMessage(userid,  loginid, $('#text').val(), $('#destinatario').val(), function(){
     console.log("change");
-    alert(id);
     window.location.replace('music4you.html');
   });
 });

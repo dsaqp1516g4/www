@@ -19,3 +19,26 @@ $( "#crearplay" ).click(function( event ) {
     formData.append('audio', audio);
     crearPlay(formData);    
   });
+
+$( "#editPlay" ).click(function( event ) {
+  event.preventDefault();
+var id = localStorage.getItem('idplay');
+    console.log("id playlist", id);
+    var artista=$("#artista").val();
+    var titulo=$("#titulo").val();
+    var enlace=$("#enlace").val();
+     
+    event.preventDefault();
+   /* var formData = new FormData();
+    formData.append('id', id);
+    formData.append('subject', subject);
+    formData.append('description', description);
+    formData.append('precio', precio);
+    formData.append('type', type);*/
+   
+   // alert(FormData);
+    putPlay(id, artista,titulo,enlace);
+    console.log("playlist editado (from playlist.js)");
+ });
+
+
