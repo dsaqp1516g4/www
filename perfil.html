@@ -111,7 +111,7 @@
                 </div>
 
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" id="listaPlay">
             <div class="text-right">
             <button type="button" data-toggle="modal" data-target="#CrearPlay" class="btn btn-success">Subir canción</button>
             </div>
@@ -120,8 +120,8 @@
                     </div>
             </div>
             <div class="row">
-            <div class="col-md-12">
-                <p class="intro-text">Anuncios publicados por el usuario</p>
+            <div class="col-md-12" id="anunciosAdmin">
+                <p class="intro-text">Anuncios publicados por ud.</p>
                 <div id="anuncio_result">
                 </div>
             </div>
@@ -167,7 +167,7 @@
         <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h2 id="anuncio_subject" class="modal-title" style="color:black">No funciona :(</h2>
+            <h2 id="song_subject" class="modal-title" style="color:black">No funciona :(</h2>
         </div>
         <div class="modal-body" style="color:black">
             <div id="song"></div>
@@ -250,7 +250,12 @@
             <p>Copyright &copy; Hicham Azouagh / Joan Jerez 2016</p>
         </div>
     </footer>
-
+    <!-- Crypto -->
+    <script src="js/rollups/pbkdf2.js"></script>
+    <script src="js/rollups/aes.js"></script>
+    <script src="js/rollups/md5.js"></script>
+    
+    
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
@@ -268,6 +273,9 @@
     <script src="js/login.js"></script>
     <script src="js/perfil.js"></script>
     <script src="js/playlist.js"></script>
+    
+    
+    
 
 </body>
 

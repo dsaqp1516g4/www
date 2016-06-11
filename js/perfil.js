@@ -1,11 +1,20 @@
 $(function(){
-   getCurrentUserProfile(function(user){
-	$("#stings-list").empty();
+    
+    getCurrentUserProfile(function(user){
+        $("#stings-list").empty();
       $("#stings-list").append(listItemHTML(user.loginid, user.fullname, user.email));
       $("#aProfile").text(user.fullname + ' ');
+      if(!((sessionStorage["auth-token"])===undefined)){
       $("#aProfile").append('<span class="caret"></span>');
-	   
-   });
+      }
+      if(userglobal.role!="admin"){
+        $('#botonEvento').hide();
+        $('#anunciosAdmin').hide();
+        $('#listaPlay').replaceWith('<div class="col-md-6" id="listaPlay"><div class="text-right">' + '<p class="intro-text">Anuncios publicados por el usuario</p>' +
+                '<div id="anuncio_result"></div></div>');
+      }
+      
+    });
 
 });
 
