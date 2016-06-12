@@ -35,7 +35,14 @@ $(function(){
     });
   });
 
-
+$( "#listmsg" ).click(function( event ) {
+  event.preventDefault();
+  getMessage(function(){
+    console.log("recuperando mensajes");
+    window.location.replace('mensajeria.html');
+  });
+  
+});
 $( "#buttonEnviarmensaje" ).click(function( event ) {
   event.preventDefault();
   enviarMessage(userid,  loginid, $('#text').val(), $('#destinatario').val(), function(){
