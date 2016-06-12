@@ -1,6 +1,6 @@
-﻿var BASE_URI = "http://192.168.1.39:8080/music4you"
+﻿var BASE_URI = "http://localhost:8080/music4you"
 var WEBSERVER = "./img/"
-var UPLOADFOLDER = "file:///home/hixam/Escritorio/music4you/"
+var UPLOADFOLDER = "./uploads/"
 var userglobal;
 var dInput;
 var idee;
@@ -461,16 +461,13 @@ function crearAnuncio(formdata){
             processData: false
         }).done(function(data, status,jqxhr){
                     sessionStorage["idAds"] = JSON.stringify(data.id);
-console.log("id es :", sessionStorage["idAds"]);
+                    console.log("id es :", sessionStorage["idAds"]);
    
             var response = $.parseJSON(jqxhr.responseText);
             var lastfilename = response.filname;
             $('progress').toggle();
-                                alert("Anuncio creado correctamente");
 
-           // window.location.replace('music4.html');
-            // data.links=linksToMap(data.links);
-        window.location.reload();
+            window.location.reload();
         }).fail(function(jqXHR, textStatus) {
            var error = JSON.parse(jqXHR.responseText);
             $("#vacios2").text("");
@@ -788,7 +785,7 @@ function getMessage(complete){
                                         $('<div class="list-group"><a href="#" id="'+i+'event" class="list-group-item" data-toggle="modal" data-target="#VerEvento"><h4 class="list-group-item-heading">' + evento.titol +'</h4></a>').appendTo($('#event_result'));
                                         $('<p class="list-group-item-text">').appendTo($('#event_result'));
                                         $('<div>' + evento.text + '</div><br>').appendTo($('#event_result'));
-                                        $('<strong>Fecha de inicio: </strong>' + evento.startDate + '<br>').appendTo($('#event_result'));
+                                        $('<strong>Fecha: </strong>' + evento.startDate + '<br>').appendTo($('#event_result'));
                                         $('</p>').appendTo($('#event_result'));
                                         $("#"+i+"event").click(function(){
                                         //event.preventDefault();

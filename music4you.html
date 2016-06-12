@@ -100,8 +100,8 @@
 <br><br>
            <span class="label label-success">Tipo :</span>
             <select style="background-color:#53E1EE;">
-                                <option style="background-color:#539A35;" id="inputType" value="0" class="green"  selected>Seleccionar</option>
-                                <option style="background-color:#539A35;" value="1">Artista</option>
+                                <option style="background-color:#539A35;" id="inputType">Seleccionar</option>
+                                <option style="background-color:#539A35;" value="1" selected>Artista</option>
                                 <option style="background-color:#539A35;" value="0">Melómano</option>
             </select><br><br>
 
@@ -139,15 +139,29 @@
             <h2 class="modal-title" style="color:black">Crea un evento</h2>
         </div>
         <div class="modal-body">
-            <form class="form-anuncio" id="form-anuncio">
+            <form class="form-evento" id="form-evento">
             <label for="inputTitol" class="sr-only">Título</label>
             <input type="text" id="inputTitol" class="form-control" placeholder="Asunto" required autofocus>
             <label for="description" class="sr-only">Descripción</label>
             <input type="text" id="inputText" class="form-control" placeholder="Descripción" required>
+            <div class="form-select">
+                            <select name="parent_category" id="myLocations">
+                                            <option style="background-color:black" value="0" selected>Seleccionar</option>
+                                            <option style="background-color:black" value="1">Ushuaia</option>
+                                            <option style="background-color:black" value="2">Palau Sant Jordi</option>
+                                            <option style="background-color:black" value="3">Camp Nou</option>
+                                            <option style="background-color:black" value="4">Tomorrowland</option>
+                                            <option style="background-color:black" value="5">Cream Amnesia Ibiza</option>
+                                            <option style="background-color:black" value="6">Electrobeach (el Barcarès)</option>
+                                            <option style="background-color:black" value="7">Otros</option>	
+                            </select>
+            </div>
+            <div id="coordenadas" style="display:none">
             <label for="price" class="sr-only">Latitud</label>
-            <input type="number" step="any" id="inputLat" class="form-control" placeholder="Latitud en grados">
+            <input type="number" step="any" id="inputLat" class="form-control" placeholder="Latitud en grados" >
             <label for="price" class="sr-only">Latitud</label>
             <input type="number" step="any" id="inputLong" class="form-control" placeholder="Longitud en grados">
+            </div>
             <label for="imagen" class="sr-only">Fecha</label>
             <input type="date" id="start" class="form-control" placeholder="Fecha de comienzo">
             <input type="date" id="end" class="form-control" placeholder="Fecha de final">
@@ -216,13 +230,6 @@
         </div>
     </div>
     
-    
-      
-
-    <!-- Modal para mostrar detalles de una canción -->
-        
-        
-        
 
     
     <!-- Intro Header -->
