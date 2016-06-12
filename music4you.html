@@ -100,9 +100,9 @@
 <br><br>
            <span class="label label-success">Tipo :</span>
             <select style="background-color:#53E1EE;">
-                                <option style="background-color:#539A35;" id="inputType">Seleccionar</option>
-                                <option style="background-color:#539A35;" value="1" selected>Artista</option>
-                                <option style="background-color:#539A35;" value="0">Melómano</option>
+                                <option style="background-color:#539A35;" id="inputType" value="0" selected>Seleccionar</option>
+                                <option style="background-color:#539A35;" value="1" id="inputType">Artista</option>
+                                <option style="background-color:#539A35;" value="0" id="inputType">Melómano</option>
             </select><br><br>
 
             <span class="label label-success">Imagen del anuncio :</span>
@@ -143,7 +143,7 @@
             <label for="inputTitol" class="sr-only">Título</label>
             <input type="text" id="inputTitol" class="form-control" placeholder="Asunto" required autofocus>
             <label for="description" class="sr-only">Descripción</label>
-            <input type="text" id="inputText" class="form-control" placeholder="Descripción" required>
+            <textarea rows="3" type="text" id="inputText" class="form-control" placeholder="Descripción" required></textarea>
             <div class="form-select">
                             <select name="parent_category" id="myLocations">
                                             <option style="background-color:black" value="0" selected>Seleccionar</option>

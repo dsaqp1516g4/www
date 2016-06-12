@@ -1,4 +1,5 @@
 var BASE_URI = "http://localhost:8080/music4you"
+
 var WEBSERVER = "./img/"
 var UPLOADFOLDER = "./uploads/"
 var userglobal;
@@ -382,15 +383,14 @@ function loadAnuncios(){
                                     console.log(i);
                                     $('<div class="list-group"><a href="#" id="'+i+'anuncio" class="list-group-item" data-toggle="modal" data-target="#VerAnuncio"><h4 class="list-group-item-heading">' + anuncio[i].subject +'</h4></a>').appendTo($('#anuncio_result'));
                                     $('<p class="list-group-item-text">').appendTo($('#anuncio_result'));
-                                    $('<img align="left" width="25%" src="' + UPLOADFOLDER + anuncio[i].image + '.png"><br clear="right"/></img>').appendTo($('#anuncio_result'));
-                                    $('<div align="left"><strong>Precio: </strong>' + anuncio[i].precio + ' € <br></div>').appendTo($('#anuncio_result'));
+                                    $('<strong>Precio: </strong>' + anuncio[i].precio + ' € <br>').appendTo($('#anuncio_result'));
                                     if(anuncio[i].type=1){
                                         var tipo="artista";
                                     }
                                     else{
                                         var tipo="registrado";
                                     }
-                                    $('<div align="right">' + tipo + '</div><br>').appendTo($('#anuncio_result'));
+                                    $('<strong>Usuario: </strong>' + tipo + '<br>').appendTo($('#anuncio_result'));
                                     $('</p>').appendTo($('#anuncio_result'));
                                     
                                     $("#"+i+"anuncio").click(function(){
@@ -467,7 +467,6 @@ function crearAnuncio(formdata){
             var response = $.parseJSON(jqxhr.responseText);
             var lastfilename = response.filname;
             $('progress').toggle();
-
             window.location.reload();
         }).fail(function(jqXHR, textStatus) {
            var error = JSON.parse(jqXHR.responseText);
@@ -610,13 +609,6 @@ var id = localStorage.getItem('ide');
     Anuncio.type = type;
     console.log(Anuncio);
     
-       
-    /*
-    var data ={"id":id,"userid":userid,"campusid":campusid,"address":address,"description":description,"numpartner":numpartner,"smoker":smoker,
-    "pets":pets,"girlorboy":girlorboy,"sqm":sqm,"furnished":furnished,"numrooms":numrooms,"numbathrooms":numbathrooms,"elevator":elevator,
-    "plantnum":plantnum,"internet":internet, "fianza":fianza, "estancia":estancia} */
-
-
 
     $.ajax({
     type: 'PUT',
@@ -630,26 +622,7 @@ var id = localStorage.getItem('ide');
         "Content-Type":json
         }
     
-    })
-
-
-   /* $.ajax({
-            url: uri,
-            type: 'PUT',
-            xhr: function(){
-                var myXhr=$.ajaxSettings.xhr();
-                if(myXhr.upload){
-                    myXhr.upload.addEventListener('progress',progressHandlingFunction,false);
-                }
-                return myXhr;
-            },
-            crossDomain: true,
-            data: formdata,
-            headers: {"X-Auth-Token":authToken.token},
-            cache: false,
-            contentType: false,
-            processData: false
-        })*/.done(function(data) { 
+    }).done(function(data) { 
         data.links = linksToMap(data.links);
         console.log(data);
         complete();
@@ -675,21 +648,6 @@ console.log(ide);
 localStorage.setItem('ide', ide);
 window.location.replace('editaranuncio.html');
 //editAnuncio(id);
-
-}
-/*
-function editAnuncio(id){
-    window.alert("¡Implementa la edición Hixam!");
-    
-
-     
-  
-   // putAds(id,subject, description, precio, type);
-    console.log('ads editado');
-    
-  };*/
-     
-
 
 
 /*               *
@@ -747,11 +705,10 @@ function getMessage(complete){
             }).done(function(data, status, jqxhr){
                 var msgs = data.messages;
                 console.log("msgs :", msgs);
-           //     $.each(events, function(i, v) {
-          //          var evento = v;
+
                 $.each(msgs, function(i, v) {
                     var msgs = v;
-                                        console.log("i es"+i);
+                                        console.log("i es",i);
 
                                         $('<div class="list-group"><a href="#" id="'+i+'msg" class="list-group-item active" ><h6 class="list-group-item-heading"><strong>Enviadio por: </strong>' + msgs.fromusername +'</h6>').appendTo($('#stings-list'));
                                         $(' <li class="list-group-item list-group-item-success"><strong>Mensaje: </strong>' + msgs.text + '</li>').appendTo($('#stings-list'));
@@ -760,10 +717,6 @@ function getMessage(complete){
 
                 });
 
-
-            //flat.links = linksToMap(flat.links);
-            //console.log("flat.links es :",flat.links);
-           // complete(flat);
         }).fail(function(jqXHR, textStatus){
         console.log("error");
         });
@@ -868,7 +821,7 @@ function crearEvent(titol, text, latitud, longitud, startdate, enddate){
         }).done(function(data, status, jqxhr){
             
         data.links=linksToMap(data.links);
-        //window.location.reload();
+        window.location.reload();
         
     }).fail(function(){
         console.log('Error');
@@ -1203,7 +1156,7 @@ var DISCOGS="https://api.discogs.com"
 
 
 function listItemHTML(imageURL){
-var imageURL = '<img  style="width:300px;height:228px" src="'+ imageURL +'">';
+var imageURL = '<img  style="width:300px;height:228px" src="'+ imageURL +'\">';
 //var filename = '<img  style=width:300px;height:228px; src= http://147.83.7.207:88/img/'+ filename +'>';;
 
   console.log("imgurl", imageURL);
