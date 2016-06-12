@@ -1,4 +1,4 @@
-﻿var BASE_URI = "http://192.168.1.39:8080/music4you"
+﻿var BASE_URI = "http://192.168.1.107:8080/music4you"
 var WEBSERVER = "./img/"
 var UPLOADFOLDER = "file:///home/hixam/Escritorio/music4you/"
 var userglobal;
@@ -747,10 +747,31 @@ function getMessage(complete){
                 "X-Auth-Token":authToken.token
                 }
             }).done(function(data, status, jqxhr){
-                var msgs = data.message;
+                var msgs = data.messages;
                 console.log("msgs :", msgs);
-           //     $.each(events, function(i, v) {
-          //          var evento = v;
+                //if (data == null){ $('<div class="list-group"> <li class="list-group-item list-group-item-success"><strong>No tiene ningun mensaje recibido</strong></li></div>').appendTo($('#stings-list'));}
+
+                $.each(msgs, function(i, v) {
+                    var msgs = v;
+                                        console.log("i es",i);
+
+                                        $('<div class="list-group"><a href="#" id="'+i+'msg" class="list-group-item active" ><h6 class="list-group-item-heading"><strong>Enviadio por: </strong>' + msgs.fromusername +'</h6>').appendTo($('#stings-list'));
+                                        $(' <li class="list-group-item list-group-item-success"><strong>Mensaje: </strong>' + msgs.text + '</li>').appendTo($('#stings-list'));
+                                        $('<li class="list-group-item list-group-item-success"><strong>Enviadio el: </strong>'  + msgs.creationTimestamp + '</li>').appendTo($('#stings-list'));
+                                        $('</a></div><br>').appendTo($('#stings-list'));
+
+                                      /*    <div class="list-group">
+  <a href="#" class="list-group-item active">
+      <h4 class="list-group-item-heading">First List Group Item Heading</h4>
+      <p class="list-group-item-text">List Group Item Text</p>
+    </a>*/
+
+
+ //$('<style>  body {      position: relative;  } #section1 {padding-top:25px;height:250px;color: #fff; background-color: #1E88E5;} #section2 {padding-top:25px;height:250px;color: #fff; background-color: #673ab7;}#section3 {padding-top:25px;height:250px;color: #fff; background-color: #ff9800;} #section41 {padding-top:25px;height:250px;color: #fff; background-color: #00bcd4;} #section42 {padding-top:25px;height:250px;color: #fff; background-color: #009688;} </style><body data-spy="scroll" data-target=".navbar" data-offset="50"><nav class="navbar navbar-inverse navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>                 </button><a class="navbar-brand" href="#">Musci4you "Mensajeria"</a></div><div><div class="collapse navbar-collapse" id="myNavbar"><ul class="nav navbar-nav"><li><a href="#section1">Section 1</a></li></li> </ul></div></div></div></nav>    <div id="section1" class="container-fluid"><h1>Section 1</h1><p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p><p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p></div>').appendTo($('#stings-list'));
+
+
+                                       
+                });
 
 
 
@@ -758,7 +779,7 @@ function getMessage(complete){
             //console.log("flat.links es :",flat.links);
            // complete(flat);
         }).fail(function(jqXHR, textStatus){
-        $console.log("error");
+        console.log("error");
         });
 }
 
