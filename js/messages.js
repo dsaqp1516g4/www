@@ -45,10 +45,15 @@ $( "#listmsg" ).click(function( event ) {
 });
 $( "#buttonEnviarmensaje" ).click(function( event ) {
   event.preventDefault();
+  if ($('#text').val().length > 1000){
+      window.alert("Mensaje demasiado largo");
+  }
+  else{
   enviarMessage(userid,  loginid, $('#text').val(), $('#destinatario').val(), function(){
     console.log("change");
     window.location.replace('music4you.html');
   });
+  }
 });
 
 function enviarMessage(userid, loginid, text,destinatario,  complete){

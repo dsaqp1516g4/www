@@ -188,8 +188,9 @@
             <h2 id="event_subject" class="modal-title" style="color:black">título</h2>
         </div>
         <div class="modal-body" style="color:black">
-            <div id="event"></div>
-            <div id="comentario_result"></div>
+            <div id="event"></div><br>
+            <div id="artist_play"></div>
+            <div id="comment_result"></div>
         </div>
         <div class="modal-footer">
             <form class="form-comentario" id="form-comentario">
@@ -280,56 +281,6 @@
                     <button href="#" data-toggle="modal" data-target="#CrearAnuncio" class="btn btn-success" id="botonAnuncio">Crear anuncio</button><br><br>
                     <button  href="#" data-toggle="modal" data-target="#CrearEvento" class="btn btn-success" id="botonEvento">Crear evento</button><br>
 
-                    <b>Filtros</b>
-
-                    <!-- seleccionar precio -->
-                    <dl>
-                    <dt><label>Precio</label></dt>
-                    <dd class="searchfrom">
-                        <input placeholder=" desde" id="pricelistFrom" class="textfield" type="tel">
-                        <span id="temp_ps" style="display: none;"></span>
-                    </dd>
-                    <dd class="searchfrom">
-
-                        <input placeholder=" hasta" name="pe" id="sb_pricelistTo" class="textfield searchpriceTo" value="" type="tel">
-
-                    <span id="temp_pe" style="display: none;"></span>
-                    </dd>
-                    </dl>
-                    <!-- seleccionar categoria -->
-                    <dl id="parent_category_container" class="selectDl">
-                    <dt><label for="parent_category">Género</label></dt>
-                    <dd>
-                        <span id="temp_parent_category" style="display: none;">102</span>
-                        <div class="form-select">
-                            <select name="parent_category" id="parent_category">
-                                <option value="0" selected>Seleccionar</option>
-                                            <option style="background-color:#dcdcc3;" value="1">Eurodance</option>
-                                            <option style="background-color:#dcdcc3;" value="1">House</option>
-                                            <option style="background-color:#dcdcc3;" value="2">Trance</option>
-                                            <option style="background-color:#dcdcc3;" value="3">Drum&Bass</option>
-                                            <option style="background-color:#dcdcc3;" value="4">Electropop</option>
-                                            <option style="background-color:#dcdcc3;" value="5">Folk</option>
-                                             <option style="background-color:#dcdcc3;" value="6">Otros</option>	
-                            </select>
-                        </div>
-                    </dd>
-                    </dl>
-
-                    <dl>
-                        <dt><label>Tipo</label></dt>
-                        <dd>
-                            <span id="temp_parent_category" style="display: none;">102</span>
-                            <div class="form-select">
-                                <select name="parent_category" id="parent_category">
-                                    <option value="0" selected>Seleccionar</option>
-                                    <option style="background-color:#539A35;" value="1">Artista</option>
-                                    <option style="background-color:#539A35;" value="2">Melómano</option>	
-                            </select>
-                        </div>
-                    </dd>
-                    </dl>
-                    <button class="usuario">Filtrar</button>
                 </div>
                 <!--- Anuncios y eventos-->
 
@@ -423,14 +374,15 @@
                 
                 
     <script src="js/api.js"></script>
+    <script src="js/apiexterna.js"></script>
     <script src="js/anuncio.js"></script>
+    <script src="js/playlist.js"></script>
     
     <!-- <script src="js/comentario.js"></script> -->
     <script src="js/evento.js"></script>
-    <script src="js/user.js"></script>
     <script src="js/login.js"></script>
         <script src="js/buscador.js"></script>
-    <script src="js/perfil.js"></script> -->
+    <script src="js/perfil.js"></script>
 
 </body>
 

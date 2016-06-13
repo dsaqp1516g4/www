@@ -50,9 +50,26 @@ $( "#form-evento" ).submit(function( event ) {
         latitud = null;
     }
     
+    if(($('#inputText').val().length > 600) || ($('#inputTitol').val().length > 100)){
+        window.alert("Te has pasado con el título o la descripción");
+    }
+    else{
     crearEvent($("#inputTitol").val(), $("#inputText").val(), latitud, longitud, $("#start").val(), $("#end").val(), function(){
     console.log("change");
   });
+    }
+});
+
+$( "#form-comentario").submit(function( event ) {
+    event.preventDefault();
+    if($('#inputComment').val().length > 200){
+        window.alert("Comentario demasiado largo");
+    }
+    else{
+    crearComment(null, event1.id, $('#inputComment').val(), function(){
+    //window.location.replace('music4you.html');
+  });
+    }
 });
 
 $(document).ready(function(){

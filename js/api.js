@@ -29,26 +29,6 @@ function linksToMap(links){
 	return map;
 }
 
-function loadFlats(uri, complete){
-
-	var authToken = JSON.parse(sessionStorage["auth-token"]);
-	var uri = authToken["links"]["current-flat"].uri;
-	console.log(authToken.token);
-	$.ajax({        
-		    	type: 'GET',
-		   		url: uri,
-		    	headers: {
-				"X-Auth-Token":authToken.token
-		    	}    
-		    }).done(function(flats){
-			flats.links = linksToMap(flats.links);
-			complete(flats);
-		})
-		.fail(function(){});
-
-}
-
-
 function loadAPI(complete){
 	$.get(BASE_URI)
 		.done(function(data){
@@ -380,18 +360,13 @@ function loadAnuncios(){
                                     var anuncio = new Array();
                                     anuncio[i] = v;
                                     console.log(i);
-                                    $('<div class="list-group"><a href="#" id="'+i+'anuncio" class="list-group-item" data-toggle="modal" data-target="#VerAnuncio"><h4 class="list-group-item-heading">' + anuncio[i].subject +'</h4></a>').appendTo($('#anuncio_result'));
-                                    $('<p class="list-group-item-text">').appendTo($('#anuncio_result'));
-                                    $('<img align="left" width="25%" src="' + UPLOADFOLDER + anuncio[i].image + '.png"><br clear="right"/></img>').appendTo($('#anuncio_result'));
-                                    $('<div align="left"><strong>Precio: </strong>' + anuncio[i].precio + ' € <br></div>').appendTo($('#anuncio_result'));
                                     if(anuncio[i].type=1){
                                         var tipo="artista";
                                     }
                                     else{
                                         var tipo="registrado";
                                     }
-                                    $('<div align="right">' + tipo + '</div><br>').appendTo($('#anuncio_result'));
-                                    $('</p>').appendTo($('#anuncio_result'));
+                                    $('<div class="list-group"><a href="#" id="'+i+'anuncio" class="list-group-item" data-toggle="modal" data-target="#VerAnuncio"><h4 class="list-group-item-heading">' + anuncio[i].subject +'</h4></a>' + '<p class="list-group-item-text">' + '<img align="left" height="25%" src="' + UPLOADFOLDER + anuncio[i].image + '.png"><br clear="right"/></img>' + '<div align="left"><strong>Precio: </strong>' + anuncio[i].precio + ' € <br></div>' + '<div align="right"><i>' + tipo + '</i></div><br>'+'</p></div>').appendTo($('#anuncio_result'));
                                     
                                     $("#"+i+"anuncio").click(function(){
                                     //event.preventDefault();
@@ -550,7 +525,7 @@ function loadAnunciosbyUser(){
                                     anuncio[i] = v;
                                     console.log(i);
                                     
-                                    if(userglobal.id==anuncio.userid){
+                                    if(userglobal.id==anuncio[i].userid){
                                         
                                     if(anuncio.type=1){
                                         var tipo="artista";
@@ -559,14 +534,13 @@ function loadAnunciosbyUser(){
                                         var tipo="registrado";
 
                                     }
-
-                                    $('<div class="list-group" id="' + anuncio[i].id +'"><a href="#" id="'+i+'anuncio" class="list-group-item" data-toggle="modal" data-target="#VerAnuncio"><h4 class="list-group-item-heading">' + anuncio[i].subject +'</h4></a>').appendTo($('#anuncio_result'));
-                                    $('<p class="list-group-item-text">').appendTo($('#anuncio_result'));
-                                    $('<strong>Precio: </strong>' + anuncio[i].precio + ' € <br>').appendTo($('#anuncio_result'));
-                                    
-                                    $('<strong>Usuario: </strong>' + tipo + '<br>').appendTo($('#anuncio_result'));
-                                    $('<img align="right" src="' + WEBSERVER + 'user-trash.png" onclick="borrarAnuncio(\'' + anuncio[i].id + '\');" style="cursor:pointer,vertical-align:bottom"></img>' +  '<img align="right" src="' + WEBSERVER + 'editar.png" onClick="abrireditor(\'' + anuncio[i].id +'\')" style="cursor:pointer"></img></div>').appendTo($('#anuncio_result'));
-                                    }
+                                    $('<div class="list-group" id="' + anuncio[i].id +'"><a href="#" id="'+i+'anuncio" class="list-group-item" data-toggle="modal" data-target="#VerAnuncio"><h4 class="list-group-item-heading">' + anuncio[i].subject +'</h4></a>'
+                                    + '<p class="list-group-item-text">' + '<img align="left" height="25%" src="' + UPLOADFOLDER + anuncio[i].image 
+                                    + '.png"><br clear="right"></img>' + '<div align="left"><strong>Precio: </strong>' + anuncio[i].precio + ' € </div><br>' 
+                                        + '<div align="right"><i>' + tipo + '</i></div></p>'
+                                        + '<img align="right" src="' + WEBSERVER + 'user-trash.png" onclick="borrarAnuncio(\'' + anuncio[i].id + '\');" style="cursor:pointer,vertical-align:bottom"></img>' 
+                                        +  '<img align="right" src="' + WEBSERVER + 'editar.png" onClick="abrireditor(\'' + anuncio[i].id +'\')" style="cursor:pointer"></img><br></div>').appendTo($('#anuncio_result'));
+                                    } 
                                     
                                     $("#"+i+"anuncio").click(function(){
                                     //event.preventDefault();
@@ -591,9 +565,8 @@ function loadAnunciosbyUser(){
 function putAds(id,subject,description,precio,type,complete){
     var authToken = JSON.parse(sessionStorage["auth-token"]);
     console.log("token es :",authToken.token,"id ads es: ", id);
-var id = localStorage.getItem('ide');
+    var id = localStorage.getItem('ide');
 
-    //var id = JSON.parse(sessionStorage["idflat"]);
    var uri = BASE_URI+"/anuncio/" + id;
     var userid= authToken.userid;
     console.log(uri);
@@ -609,13 +582,6 @@ var id = localStorage.getItem('ide');
     Anuncio.precio = precio;
     Anuncio.type = type;
     console.log(Anuncio);
-    
-       
-    /*
-    var data ={"id":id,"userid":userid,"campusid":campusid,"address":address,"description":description,"numpartner":numpartner,"smoker":smoker,
-    "pets":pets,"girlorboy":girlorboy,"sqm":sqm,"furnished":furnished,"numrooms":numrooms,"numbathrooms":numbathrooms,"elevator":elevator,
-    "plantnum":plantnum,"internet":internet, "fianza":fianza, "estancia":estancia} */
-
 
 
     $.ajax({
@@ -630,26 +596,7 @@ var id = localStorage.getItem('ide');
         "Content-Type":json
         }
     
-    })
-
-
-   /* $.ajax({
-            url: uri,
-            type: 'PUT',
-            xhr: function(){
-                var myXhr=$.ajaxSettings.xhr();
-                if(myXhr.upload){
-                    myXhr.upload.addEventListener('progress',progressHandlingFunction,false);
-                }
-                return myXhr;
-            },
-            crossDomain: true,
-            data: formdata,
-            headers: {"X-Auth-Token":authToken.token},
-            cache: false,
-            contentType: false,
-            processData: false
-        })*/.done(function(data) { 
+    }).done(function(data) { 
         data.links = linksToMap(data.links);
         console.log(data);
         complete();
@@ -752,11 +699,18 @@ function getMessage(complete){
                 $.each(msgs, function(i, v) {
                     var msgs = v;
                                         console.log("i es"+i);
-
-                                        $('<div class="list-group"><a href="#" id="'+i+'msg" class="list-group-item active" ><h6 class="list-group-item-heading"><strong>Enviadio por: </strong>' + msgs.fromusername +'</h6>').appendTo($('#stings-list'));
-                                        $(' <li class="list-group-item list-group-item-success"><strong>Mensaje: </strong>' + msgs.text + '</li>').appendTo($('#stings-list'));
-                                        $('<li class="list-group-item list-group-item-success"><strong>Enviadio el: </strong>'  + msgs.creationTimestamp + '</li>').appendTo($('#stings-list'));
-                                        $('</a></div><br>').appendTo($('#stings-list'));
+                                var date = new Date(msgs.creationTimestamp);
+                                var hours = date.getHours();
+                                var minutes = date.getMinutes();
+                                var seconds = date.getSeconds();
+                                var day = date.getDate();
+                                var month = date.getMonth() + 1;
+                                var year = date.getFullYear();
+                                        var creationTimestamp = day+'/'+month+'/'+year+' '+hours+':'+minutes+':'+seconds;
+                                        $('<div class="list-group"><a href="#" id="'+i+'msg" class="list-group-item active" ><h6 class="list-group-item-heading"><strong>Enviado por: </strong>' + msgs.fromusername +'</h6>').appendTo($('#msg-list'));
+                                        $(' <li class="list-group-item list-group-item-success"><strong>Mensaje: </strong>' + msgs.text + '</li>').appendTo($('#msg-list'));
+                                        $('<li class="list-group-item list-group-item-success"><strong>Enviado el: </strong>'  + creationTimestamp + '</li>').appendTo($('#msg-list'));
+                                        $('</a></div><br>').appendTo($('#msg-list'));
 
                 });
 
@@ -773,7 +727,7 @@ function getMessage(complete){
 /*         *
  * EVENTOS *
  *         */
-
+var event1;
  function loadEvents(){
     $('#event_result').text(''); 
     
@@ -826,7 +780,7 @@ function getEvent(uri){
         dataType: "json",
         //headers: {"X-Auth-Token" : authToken.token}
     }).done(function(data, status, jqxhr){
-        var event1 = data;
+        event1 = data;
         var w = event1.lon-0.01;
         var x = event1.lat-0.005;
         var y = event1.lon+0.01;
@@ -837,7 +791,7 @@ function getEvent(uri){
                                 '<strong>Fecha de final: </strong>' + event1.endDate + '<br>'
                                 + '<iframe id="localizacion" width="350" height="280" frameborder="0" style="border: 1px solid black" src="http://www.openstreetmap.org/export/embed.html?bbox=' + w + '%2C' + x + '%2C' + y + '%2C' + z + '&layer=mapnik&marker=' + event1.lat + '%2C' + event1.lon + '" marginwidth="0" marginheight="0" scrolling="no">' + 
                                 '</div>');
-        
+        loadPlaylist2(event1.userid);
         loadComentarios(event1.id,-1);
         //data.links=linksToMap(data.links);
     }).fail(function(){
@@ -1056,6 +1010,48 @@ function loadPlaylist(){
         $("#playlist_result").append("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>");
     });
 }
+
+function loadPlaylist2(id){
+    $('#playlist_result').text(''); 
+    var authToken = JSON.parse(sessionStorage["auth-token"]);
+    var uri = BASE_URI+"/songs";
+    $.ajax({
+        type : 'GET',
+        url : uri,
+        headers: {"X-Auth-Token":authToken.token},
+        dataType : 'json',
+        crossDomain : true,
+    }).done(function(data, status, jqxhr){
+        
+        var canciones2 = data.playlists;
+        $.each(canciones2, function(i, v) {
+                                    song[i] = v;
+                                    console.log(i);
+                                    //console.log(song[i].userid);
+                                    if(id==song[i].userid){
+                                        
+                                    $('<div id="' + song[i].id +'" class="list-group"><h4 class="list-group-item-heading">' + song[i].artist + ' - ' + song[i].title + '</h4>' 
+                                    + '<p class="list-group-item-text">' + 
+                                    '<div id="audio_player"></div>'+ 
+                                     '<br><br></p></div>').appendTo($('#artist_play'));
+                                    if(!(song[i].audio===undefined)){
+                                        $('<br><audio src="'+ UPLOADFOLDER + song[i].audio + '" preload="auto" controls></audio><br><br>').appendTo($('#audio_player'));
+                                    }
+                                    }
+                                    
+                                    });
+        //data.links=linksToMap(data.links);
+        //var response = data;
+        //var anuncioCollection = new AnuncioCollection(response);
+        //var html = anuncioCollection.toHTML();
+    }).fail(function(jqXHR, textStatus){
+        $("#artist_play").text("");
+        $("#artist_play").append("<div class='alert alert-block alert-danger'><p>Algo falló :(</p></div>");
+    });
+}
+
+
+
 
 function putPlay(id, artista,titulo,enlace,complete){
 

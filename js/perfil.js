@@ -93,7 +93,7 @@ console.log(url);
    alert('Usuario eliminado correctamente.');
    window.location.replace("index.html");        
       }).fail(function() {
-         alert('No se ha podido elimiar la cuenta');
+         alert('No se ha podido eliminar la cuenta');
   });
 
 }

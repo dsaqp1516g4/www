@@ -22,99 +22,103 @@
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 
 </head>
-  <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
     <!-- Navigation -->
-     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand page-scroll" href="index.html">
-                    <i class="fa fa-play-circle"></i>  <span class="light">Inicio</span> Music4You
+                    <i class="fa fa-play-circle"></i> <span class="light">Inicio</span> Music4You
                 </a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-                       <div id="navbar" class="navbar-collapse collapse">
+            <div id="navbar" class="navbar-collapse collapse">
 
-            <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a id="aProfile" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a id="aGoToProfile" href="perfil.html">Mi Cuenta</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a id="aMisAds" href="music4you.html">Mis Anuncios</a></li>
-                <li role="separator" class="divider"></li>
-                  <li><a id="aMessages" href="mensajeria.html">Mensajes</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#" id="form-signout">Cerrar sesión</a></li>
-              </ul>
-            </li>
-          </ul><!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a id="aProfile" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a id="aGoToProfile" href="perfil.html">Mi Cuenta</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a id="aMisAds" href="music4you.html">Mis Anuncios</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a id="aMessages" href="mensajeria.html">Mensajes</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#" id="form-signout">Cerrar sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
     </nav>
 
     <!-- Intro Header -->
-    <header class="intro">
+    <section class="container download-section text-center">
         <div class="intro-body">
             <div class="container">
-                <div class="container">
-   <div class="container">
-    <div class="jumbotron text-center col-sm-12 col-sm-offset-1 col-md-10 col-md-offset-1">
+                
+                    
+                        <div class="jumbotron text-center col-sm-12 col-sm-offset-1 col-md-10 col-md-offset-1">
 
-        <div id="stings">
-            <div class="row">
-            <!--/.<button id="buttonUpdate" type="button" class="btn btn-default center-block">Update</button> -->
-            
+                            <div id="stings">
+                                <div class="row">
+                                    <!--/.<button id="buttonUpdate" type="button" class="btn btn-default center-block">Update</button> -->
+
+                                </div>
+                                <div class="row row-margin">
+
+                                    <div class="col-sm-8 col-sm-offset-2 col-center-block">
+                                        <div id="msg-list" class="list-group">
+
+                                        </div>
+                                    </div>
+
+                                    <br><br><br>
+
+                                </div>
+
+                                <div class="form-group lead">
+                                    <span class="label label-default lead">Remitente:</span> <span for="text" class=" label label-success lead"
+                                        id="loginid"> </span> <br><br>
+
+
+                                    <span class="label label-default lead">Destinatario:</span> <input for="text" class="bg-primary lead"
+                                        id="destinatario" text="no se cargo el login"> </input> <br><br>
+
+                                    <label class="label label-success lead" for="text">Mensaje :</label>
+                                    <br><br>
+                                    <textarea name="text" class="form-control" id="text" rows="8"></textarea>
+                                </div>
+                                <br>
+
+                                <form id="formEnviarmensaje">
+                                    <button id="listmsg" class="btn btn-default" type="submit">listar mensajes</button>
+                                    <button id="buttonEnviarmensaje" type="submit" class="btn btn-default center-block">Enviar mensaje</button>
+                                </form>
+
+                                <br>
+
+
+                                <br>
+                                <br>
+                            </div>
+                            <div class="row">
+                                <a class="btn btn-danger" href="perfil.html" type="submit">Atrás</a>
+
+                            </div>
+                        </div>
+                    
+                
             </div>
-            <div class="row row-margin">
-
-                <div class="col-sm-8 col-sm-offset-2 col-center-block">
-                    <div id="stings-list" class="list-group">
-                             
-                    </div>
-                </div>
-
-        <br><br><br>
-
         </div>
-        
-          <div class="form-group lead">
-                               <span class="label label-default lead">Remitente:</span> <span for="text" class=" label label-success lead" id="loginid"> </span> <br><br>
-
-                      
-                       <span class="label label-default lead">Destinatario:</span>  <input for="text" class="bg-primary lead" id="destinatario" text = "no se cargo el login"> </input> <br><br>
-
-        <label class="label label-success lead" for="text">Mensaje :</label>
-        <br><br>
-             <textarea name="text" class="form-control" id="text" rows="8"></textarea>
-            </div>   
-        <br>
-                  
-        <form id="formEnviarmensaje">
-        <button id="listmsg" class="btn btn-default" type="submit">listar mensajes</button>
-          <button id="buttonEnviarmensaje" type="submit" class="btn btn-default center-block">Enviar mensaje</button>
-        </form>
-    
-<br>
-        
-        
-        <br>
-     <br>
-    </div>
-        <div class="row">
-                    <a class="btn btn-danger" href="perfil.html" type="submit">Atrás</a>
-
-        </div>
-        </div>
-    </div>
-  </div>
-            </div>
-        </div>
-    </header>
+    </section>
     <!-- Register modal -->
 
     <div id="myModal" class="modal fade" role="dialog">
@@ -142,8 +146,10 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/grayscale.js"></script>
     <script src="js/api.js"></script>
+    <script src="js/perfil.js"></script>
     <script src="js/messages.js"></script>
     <script src="js/weblinking.js"></script>
+    <script src="js/login.js"></script>
 
 </body>
 </html>

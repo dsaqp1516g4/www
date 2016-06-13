@@ -37,7 +37,7 @@
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-                       <div id="navbar" class="navbar-collapse collapse">
+            <div id="navbar" class="navbar-collapse collapse">
 
             <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
@@ -58,84 +58,84 @@
     </nav>
 
     <!-- Intro Header -->
-    <header class="intro">
-        <div class="intro-body">
-            <div class="container">
-                <div class="container">
-    <div class="jumbotron text-center ">  
-        <div id="stings">
-            <div class="row">
-     
-            </div>
-            <div class="row row-margin">
-                <div class="col-sm-8 col-sm-offset-2  col-center-block">
-                    <div id="stings-list" class="list-group">
-                        <a class="list-group-item">
-                            <p class="list-group-item-text">Si ves esto es que no funciono</p>
-                            <h6 class="list-group-item-heading" align="right">Cabecera</h6> 
-                         <h6 Descripcion: <input type="text" id="descripcion"></h6>
-                        </a>
+   <section class="container download-section text-center">
+    <div class="intro-body">
+        <div class="container">
+                <div class="jumbotron text-center ">
+                    <div id="stings">
+                        <div class="row">
+
+                        </div>
+                        <div class="row row-margin">
+                            <div class="col-sm-8 col-sm-offset-2  col-center-block">
+                                <div id="stings-list" class="list-group">
+                                    <a class="list-group-item">
+                                        <p class="list-group-item-text">Si ves esto es que no funciono</p>
+                                        <h6 class="list-group-item-heading" align="right">Cabecera</h6>
+                                        <h6 Descripcion: <input type="text" id="descripcion"></h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <form class="form-signin" id="editar">
+                                <label for="loginid" class="sr-only">Username</label>
+                                <input type="text" id="loginid" class="form-control" placeholder="Nombre de Usuario" required autofocus>
+
+                                <label for="fullname" class="sr-only">fullname</label>
+                                <input type="text" id="fullname" class="form-control" placeholder="Nombre completo (Nombre y apellidos)" required>
+
+                                <label for="email" class="sr-only">email</label>
+                                <input type="text" id="email" class="form-control" placeholder="Correo electrónico" required>
+
+                                <br>
+                                <button class="btn btn-success" id='registrar' type="submit">Editar Cuenta</button>
+
+                                <a class="btn btn-danger" href="perfil.html" type="submit">Atrás</a>
+                            </form>
+                        </div>
+                        <div id="result"></div>
+
+
                     </div>
                 </div>
-            </div>
-
-
-          <div class="container">
-        <form class="form-signin" id="editar">
-            <label for="loginid" class="sr-only">Username</label>
-            <input type="text" id="loginid" class="form-control" placeholder="Nombre de Usuario" required autofocus>
-
-            <label for="fullname" class="sr-only">fullname</label>
-            <input type="text" id="fullname" class="form-control" placeholder="Nombre completo (Nombre y apellidos)" required>
-
-             <label for="email" class="sr-only">email</label>
-            <input type="text" id="email" class="form-control" placeholder="Correo electrónico" required>
-
-            <br>
-            <button class="btn btn-success" id='registrar' type="submit">Editar Cuenta</button>
             
-            <a class="btn btn-danger" href="perfil.html" type="submit">Atrás</a>
-      </form>
-     </div>
-            <div id="result"></div>
-    
+        </div>
+    </div>
+</section>
+<!-- Register modal -->
 
-  </div>
-  </div>
-  </div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+
+
+        <!-- Footer -->
+        <footer>
+            <div class="container text-center">
+                <p>Copyright &copy; Hicham Azouagh / Joan Jerez 2016</p>
             </div>
-        </div>
-    </header>
-    <!-- Register modal -->
+        </footer>
 
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <!-- jQuery -->
+        <script src="js/jquery.js"></script>
 
-    <!-- Modal content-->
-       
-    
-    <!-- Footer -->
-    <footer>
-        <div class="container text-center">
-            <p>Copyright &copy; Hicham Azouagh / Joan Jerez 2016</p>
-        </div>
-    </footer>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="js/bootstrap.min.js"></script>
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+        <!-- Plugin JavaScript -->
+        <script src="js/jquery.easing.min.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="js/grayscale.js"></script>
+        <script src="js/api.js"></script>
 
-    <!-- Plugin JavaScript -->
-    <script src="js/jquery.easing.min.js"></script>
+        <script src="js/editarcuenta.js"></script>
+        <script src="js/weblinking.js"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="js/grayscale.js"></script>
-    <script src="js/api.js"></script>
+        </body>
 
-    <script src="js/editarcuenta.js"></script>
-    <script src="js/weblinking.js"></script>
-
-</body>
-</html>
+        </html>

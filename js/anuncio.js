@@ -14,7 +14,7 @@ $( "#crearanuncio" ).click(function( event ) {
     var precio=$("#inputPrice").val();
     var type=$("#inputType").val();
     var image = $('#imagen')[0].files[0];
-console.log("se supone que img es :", image)
+    console.log("se supone que img es :", image)
     event.preventDefault();
     $('progress').toggle();
     var formData = new FormData();
@@ -24,7 +24,12 @@ console.log("se supone que img es :", image)
     formData.append('type', type);
     formData.append('image', image);    
     console.log("form data es ::", formData);
+    if(($("#inputSubject").val().length > 50) || ($("#inputDescription").val().length > 500)){
+        window.alert("Te has pasado con el título o la descripción");
+    }
+    else{
     crearAnuncio(formData);
+    }
     console.log('ads creado');
     
   });
@@ -72,9 +77,14 @@ var id = localStorage.getItem('ide');
 
 $( "#form-comentario2").submit(function( event ) {
     event.preventDefault();
+    if($('#inputComment2').val().length > 200){
+      window.alert("Comentario demasiado largo");  
+    }
+    else{
     crearComment(anuncio1.id, null, $('#inputComment2').val(), function(){
     //window.location.replace('music4you.html');
   });
+    }
 });
 
 
